@@ -10,7 +10,9 @@ public class Window extends JFrame {
 	public Window(Game game) {
 		super("Dino Game");
 		this.game = game;
-		set();
+		this.set();
+		game.activate();
+		game.render();
 	}
 	
 	private void set() {
