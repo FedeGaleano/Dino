@@ -5,13 +5,18 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Window extends JFrame {
 	
-	public Window() {
+	private Game game;
+
+	public Window(Game game) {
 		super("Dino Game");
+		this.game = game;
 		set();
 	}
 	
 	private void set() {
-		this.setSize(600, 200);
+		this.setIgnoreRepaint(true);
+		this.getContentPane().add(game);
+		this.pack();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
