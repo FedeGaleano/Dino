@@ -19,22 +19,23 @@ public class Dinosaur {
 	public Dinosaur() {
 		sprite = new Image[4];
 
-		try {
-			for (int i = 0; i < sprite.length; i++)
-				sprite[i] = take(i);
+		for (int i = 0; i < sprite.length; i++)
+			sprite[i] = takeSubimage(i);
 
-			index = running_state_1;
-			image = sprite[index];
-		}
-		catch (IOException e) {
-			System.out.println("Couldn't open dinosaur spritesheet file");
-		}
+		index = running_state_1;
+		image = sprite[index];
 	}
 
-	private BufferedImage take(int nthImage) throws IOException {
-		return ImageIO
-				.read(new File("res/Dinosaur.png"))
-				.getSubimage(nthImage * 40, 0, 40, 42);
+	private BufferedImage takeSubimage(int nthSubimage) {
+		BufferedImage subimage = null;
+		try {
+			subimage = ImageIO.read(new File("res/Dinosaur.png")).getSubimage(nthSubimage * 40, 0, 40, 42);
+		}
+		catch(IOException e) {
+			System.err.println("Couldn't open dinosaur spritesheet file");
+			System.exit(-1);
+		}
+		return subimage;
 	}
 
 	public void setGraphics(Graphics g) {
