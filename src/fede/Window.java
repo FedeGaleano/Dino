@@ -1,5 +1,8 @@
 package fede;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
@@ -24,4 +27,17 @@ public class Window extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+
+	public void onClose(Callback callback) {
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				callback.call();
+			}
+		});
+	}
+}
+
+interface Callback {
+	public abstract void call();
 }
