@@ -14,8 +14,6 @@ public class Window extends JFrame {
 		super("Dino Game");
 		this.game = game;
 		this.set();
-		game.activate();
-		game.render();
 	}
 	
 	private void set() {
