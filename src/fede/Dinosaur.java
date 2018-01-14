@@ -9,12 +9,15 @@ import javax.imageio.ImageIO;
 
 public class Dinosaur {
 
+	// Graphics
 	private Graphics g;
 	private Image image;
 	private Image[] sprite;
 	private int index = 0;
-
 	private static final int running_state_1 = 0, running_state_2 = 1, normal_state = 2, lost_state = 3;
+	
+	// Character
+	private int x = 100, y = 100;
 
 	public Dinosaur() {
 		sprite = new Image[4];
@@ -43,7 +46,7 @@ public class Dinosaur {
 	}
 
 	public void render() {
-		g.drawImage(image, 100, 100, null);
+		g.drawImage(image, x, y, null);
 	}
 
 	public void update() {
