@@ -6,27 +6,32 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import static java.lang.Math.pow;
 
 public class Dinosaur {
 
 	// Graphics
 	private Graphics g;
 	private Image image;
-	private Image[] sprite;
-	private int index = 0;
-	private static final int running_state_1 = 0, running_state_2 = 1, normal_state = 2, lost_state = 3;
+	private Image sprite[];
+	private int imagePointer;
+	private static final int running_state_1 = 0, running_state_2 = 1, stand_or_jump_state = 2, lost_state = 3;
 	
 	// Character
-	private int x = 100, y = 100;
-
+	private static final int y0 = 150;
+	private static final int v0 = 22;
+	private static final double grav = 3.5;
+	private int t = 0;
+	private int x = 100, y = y0;
+	private Behaviour behaviour; 
+	
 	public Dinosaur() {
 		sprite = new Image[4];
 
 		for (int i = 0; i < sprite.length; i++)
 			sprite[i] = takeSubimage(i);
-
-		index = running_state_1;
-		image = sprite[index];
+		
+		this.run();
 	}
 
 	private BufferedImage takeSubimage(int nthSubimage) {
@@ -50,7 +55,37 @@ public class Dinosaur {
 	}
 
 	public void update() {
-		index ^= 1;
-		image = sprite[index];
+		behaviour.behave();
+		image = sprite[imagePointer];
 	}
+	
+	/* Events that change behaviour */
+	public void run() {
+		imagePointer = running_state_1;
+		behaviour = this::behaveAsRunning;
+	}
+	
+	public void jump() {
+		imagePointer = stand_or_jump_state;
+		behaviour = this::behaveAsJumping;
+	}
+	
+	/* Possible Behaviours */	
+	private void behaveAsRunning() {
+		imagePointer = (Engine.count / 3) % 2;
+	}
+	
+	private void behaveAsJumping() {
+		y = (int)(y0 - v0 * t + grav * pow(t, 2) / 2);
+		t++;
+		if(y > y0) {
+			t = 0;
+			y = y0;
+			this.run();
+		}
+	}
+}
+
+interface Behaviour {
+	abstract void behave();
 }

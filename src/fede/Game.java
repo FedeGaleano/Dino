@@ -54,4 +54,8 @@ public class Game extends Canvas {
 	public void over() {
 		g.dispose();
 	}
+	
+	public void makeDinosaurJump() {
+		dino.jump();
+	}
 }

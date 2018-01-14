@@ -2,7 +2,11 @@ package fede;
 
 import javax.swing.SwingUtilities;
 
+import fede.listener.GameListener;
+
 public class Engine {
+	
+	public static int count = 0;
 	
 	private static Game game;
 	private static Thread mainLoopThread;
@@ -13,8 +17,10 @@ public class Engine {
 	}
 	
 	private static void setGuiThenGoToMainLoopThread() {
-		new Window(game = new Game())
-			.onClose(Engine::finish);
+		Window window = new Window(game = new Game());
+		window.onClose(Engine::finish);
+		
+		new GameListener(window, game).start();
 		
 		mainLoopThread = new Thread(Engine::mainLoop);
 		mainLoopThread.start();
@@ -27,7 +33,8 @@ public class Engine {
 		while(running) {
 			game.render();
 			game.update();
-			sleep(100);
+			sleep(34);
+			count++;
 		}
 	}
 	
