@@ -7,18 +7,18 @@ import java.awt.image.BufferStrategy;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas {
-	
-	//Colors
+
+	// Colors
 	private static final Color foregroundColor = Color.decode("#535353");
 	private static final Color backgroundColor = Color.decode("#F7F7F7");
-	
-	//Graphic tools
+
+	// Graphic tools
 	private Graphics g;
 	private BufferStrategy bufferStrategy;
-	
-	//Sprites
+
+	// Sprites	
 	private Dinosaur dino;
-	
+
 	public Game() {
 		super();
 		this.setIgnoreRepaint(true);
@@ -27,18 +27,31 @@ public class Game extends Canvas {
 		this.setForeground(foregroundColor);
 		dino = new Dinosaur();
 	}
-	
+
 	public void activate() {
 		this.createBufferStrategy(2);
 		bufferStrategy = this.getBufferStrategy();
 		g = bufferStrategy.getDrawGraphics();
 		dino.setGraphics(g);
 	}
-	
+
 	public void render() {
-		dino.render();
+		this.clearScreen();
 		
+		dino.render();
+
 		bufferStrategy.show();
+	}
+
+	private void clearScreen() {
+		g.clearRect(0, 0, this.getWidth(), this.getHeight());
+	}
+
+	public void update() {
+		dino.update();
+	}
+
+	public void over() {
 		g.dispose();
 	}
 }
