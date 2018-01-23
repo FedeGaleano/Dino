@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -19,7 +20,7 @@ public class Game extends Canvas {
 
 	// Sprites	
 	private Dinosaur dino;
-	private Cactus cactus;
+	private List<Cactus> cactuses;
 	
 	public Game() {
 		super();
@@ -28,7 +29,7 @@ public class Game extends Canvas {
 		this.setBackground(backgroundColor);
 		this.setForeground(foregroundColor);
 		dino = new Dinosaur();
-		cactus = new Cactus();
+		cactuses = new ArrayList<Cactus>();
 	}
 
 	public void activate() {
@@ -36,21 +37,20 @@ public class Game extends Canvas {
 		bufferStrategy = this.getBufferStrategy();
 		g = bufferStrategy.getDrawGraphics();
 		dino.setGraphics(g);
-		cactus.setGraphics(g);
 	}
 
 	public void render() {
 		this.clearScreen();
 		
 		dino.render();
-		cactus.render();
+		cactuses.forEach(c -> c.render());
 		drawFloor();
 
 		bufferStrategy.show();
 	}
 
 	private void drawFloor() {
-		g.drawLine(0, 180, 600, 180);
+		g.drawLine(0, 180, this.getWidth(), 180);
 	}
 
 	private void clearScreen() {
@@ -58,8 +58,12 @@ public class Game extends Canvas {
 	}
 
 	public void update() {
+		if(Engine.count % 50 == 0) {
+			cactuses.add(new Cactus(g));
+		}
+
 		dino.update();
-		cactus.update();
+		cactuses.forEach(c -> c.update());
 	}
 
 	public void over() {

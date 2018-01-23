@@ -15,7 +15,7 @@ public class Cactus {
 	
 //	public static final int four_cactuses = 1, three_cactuses = 2, little_cactus = 3, big_cactus = 4, two_little_cactuses = 5, two_big_cactuses = 6;
 	
-	private int x = 400, y = 145;
+	private int x = 650, y = 145;
 	
 	public Cactus() {
 		try {
@@ -24,6 +24,11 @@ public class Cactus {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Cactus(Graphics g) {
+		this();
+		this.setGraphics(g);
 	}
 	
 	public void setGraphics(Graphics g) {
