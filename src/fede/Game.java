@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
+import static fede.utils.FedeCollections.filter;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas {
@@ -64,8 +65,13 @@ public class Game extends Canvas {
 
 		dino.update();
 		cactuses.forEach(c -> c.update());
+		filter(cactuses, this::cactusIsInsideBounds);
 	}
 
+	private boolean cactusIsInsideBounds(Cactus cactus) {
+		return cactus.getCoordinates().x > -100;
+	}
+	
 	public void over() {
 		g.dispose();
 	}
