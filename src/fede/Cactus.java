@@ -2,6 +2,7 @@ package fede;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
@@ -41,5 +42,9 @@ public class Cactus {
 	
 	public void render() {
 		g.drawImage(image, x, y, null);
+	}
+	
+	public Point getCoordinates() {
+		return new Point(x, y);
 	}
 }
