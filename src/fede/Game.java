@@ -11,6 +11,7 @@ import fede.entity.Cactus;
 import fede.entity.Dinosaur;
 
 import static fede.utils.FedeCollections.filter;
+import static fede.utils.FedeCollections.any;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas {
@@ -70,6 +71,9 @@ public class Game extends Canvas {
 		dino.update();
 		cactuses.forEach(c -> c.update());
 		filter(cactuses, this::cactusIsInsideBounds);
+		if(any(cactuses, c -> c.getHitBox().collidesWith(dino.getHitBox()))) {
+			System.out.println("game over");
+		}
 	}
 
 	private boolean cactusIsInsideBounds(Cactus cactus) {
