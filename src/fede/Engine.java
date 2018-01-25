@@ -52,6 +52,7 @@ public class Engine {
 			game.over();
 			running = false;
 			mainLoopThread.join();
+			System.exit(0);
 		}
 		catch (InterruptedException e) {
 			e.printStackTrace();
