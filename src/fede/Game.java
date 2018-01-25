@@ -6,6 +6,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
+
+import fede.entity.Cactus;
+import fede.entity.Dinosaur;
+
 import static fede.utils.FedeCollections.filter;
 
 @SuppressWarnings("serial")
