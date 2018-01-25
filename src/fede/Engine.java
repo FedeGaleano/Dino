@@ -47,7 +47,7 @@ public class Engine {
 		}
 	}
 	
-	private static void finish() {
+	public static void finish() {
 		try {
 			game.over();
 			running = false;

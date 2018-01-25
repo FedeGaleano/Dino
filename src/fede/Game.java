@@ -12,6 +12,7 @@ import fede.entity.Dinosaur;
 
 import static fede.utils.FedeCollections.filter;
 import static fede.utils.FedeCollections.any;
+import static javax.swing.SwingUtilities.invokeLater;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas {
@@ -72,7 +73,7 @@ public class Game extends Canvas {
 		cactuses.forEach(c -> c.update());
 		filter(cactuses, this::cactusIsInsideBounds);
 		if(any(cactuses, c -> c.getHitBox().collidesWith(dino.getHitBox()))) {
-			System.out.println("game over");
+			invokeLater(Engine::finish);
 		}
 	}
 
