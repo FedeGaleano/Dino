@@ -17,8 +17,8 @@ public class Dinosaur extends Entity {
 	
 	// Character
 	private static final int y0 = 150;
-	private static final int v0 = 22;
-	private static final double grav = 3.5;
+	private static final int v0 = 20;
+	private static final double grav = 2;
 	private int t = 0;
 	private Behaviour behaviour; 
 	

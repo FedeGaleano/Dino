@@ -26,7 +26,7 @@ public class Cactus extends Entity {
 	
 	@Override
 	public void update() {
-		x -= 15;
+		x -= 6;
 	}
 	
 	@Override
