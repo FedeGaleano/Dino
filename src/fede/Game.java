@@ -57,11 +57,21 @@ public class Game extends Canvas {
 		renderer.behave();
 	}
 
+	public void update() {
+		updater.behave();
+	}
+	
+	// Renderers
 	private void renderLevel() {
 		dino.render();
 		cactuses.forEach(c -> c.render());
 		drawFloor();
 
+		bufferStrategy.show();
+	}
+	
+	private void renderGameOverScreen() {
+		g.drawString("GAME OVER", 200, 100);
 		bufferStrategy.show();
 	}
 	
@@ -72,11 +82,8 @@ public class Game extends Canvas {
 	private void clearScreen() {
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
-
-	public void update() {
-		updater.behave();
-	}
 	
+	//Updaters
 	private void updateLevel() {
 		if(gameOver) {
 			updater = this::updateGameOverScreen;
@@ -95,7 +102,12 @@ public class Game extends Canvas {
 			gameOver = true;
 		}
 	}
+	
+	private void updateGameOverScreen() {
+		
+	}
 
+	// Utils
 	private boolean cactusIsInsideBounds(Cactus cactus) {
 		return cactus.getCoordinates().x > -100;
 	}
@@ -106,15 +118,6 @@ public class Game extends Canvas {
 	
 	public void makeDinosaurJump() {
 		dino.jump();
-	}
-	
-	private void renderGameOverScreen() {
-		g.drawString("GAME OVER", 200, 100);
-		bufferStrategy.show();
-	}
-	
-	private void updateGameOverScreen() {
-		
 	}
 }
 
