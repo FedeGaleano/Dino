@@ -23,4 +23,8 @@ public abstract class Entity {
 	
 	public abstract void render(); 
 	public abstract void update();
+	
+	public void renderHitBox() {
+		g.drawRect(x, y, image.getWidth(null), image.getHeight(null));
+	}
 }
