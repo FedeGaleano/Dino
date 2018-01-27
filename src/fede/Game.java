@@ -30,6 +30,7 @@ public class Game extends Canvas {
 	// Sprites	
 	private Dinosaur dino;
 	private List<Cactus> cactuses;
+	private boolean gameOver = false;
 	
 	public Game() {
 		super();
@@ -78,6 +79,12 @@ public class Game extends Canvas {
 	}
 	
 	private void updateLevel() {
+		if(gameOver) {
+			updater = this::updateGameOverScreen;
+			renderer = this::renderGameOverScreen;
+			return;
+		}
+		
 		if(Engine.count % 50 == 0) {
 			cactuses.add(new Cactus(g));
 		}
@@ -86,7 +93,7 @@ public class Game extends Canvas {
 		cactuses.forEach(c -> c.update());
 		filter(cactuses, this::cactusIsInsideBounds);
 		if(any(cactuses, c -> c.getHitBox().collidesWith(dino.getHitBox()))) {
-			this.switchToGameOverScreen();
+			gameOver = true;
 		}
 	}
 
@@ -94,17 +101,12 @@ public class Game extends Canvas {
 		return cactus.getCoordinates().x > -100;
 	}
 	
-	public void over() {
+	public void free() {
 		g.dispose();
 	}
 	
 	public void makeDinosaurJump() {
 		dino.jump();
-	}
-	
-	private void switchToGameOverScreen() {
-		renderer = this::renderGameOverScreen;
-		updater = this::updateGameOverScreen;
 	}
 	
 	private void renderGameOverScreen() {

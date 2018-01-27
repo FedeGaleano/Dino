@@ -49,7 +49,7 @@ public class Engine {
 	
 	public static void finish() {
 		try {
-			game.over();
+			game.free();
 			running = false;
 			mainLoopThread.join();
 			System.exit(0);
