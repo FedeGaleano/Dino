@@ -30,6 +30,7 @@ public class Dinosaur extends Entity {
 		
 		x = 100;
 		y = y0;
+		image = sprite[stand_or_jump_state];
 		
 		this.run();
 	}
