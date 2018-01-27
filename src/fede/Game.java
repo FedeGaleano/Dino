@@ -53,12 +53,11 @@ public class Game extends Canvas {
 	}
 
 	public void render() {
+		this.clearScreen();
 		renderer.behave();
 	}
 
 	private void renderLevel() {
-		this.clearScreen();
-		
 		dino.render();
 		cactuses.forEach(c -> c.render());
 		drawFloor();
@@ -110,7 +109,6 @@ public class Game extends Canvas {
 	}
 	
 	private void renderGameOverScreen() {
-		this.clearScreen();
 		g.drawString("GAME OVER", 200, 100);
 		bufferStrategy.show();
 	}
