@@ -83,6 +83,10 @@ public class Dinosaur extends Entity {
 			this.run();
 		}
 	}
+
+	public void die() {
+		image = sprite[lost_state];
+	}
 }
 
 interface Behaviour {

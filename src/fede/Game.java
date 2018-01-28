@@ -5,8 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import fede.entity.Cactus;
 import fede.entity.Dinosaur;
@@ -31,6 +36,7 @@ public class Game extends Canvas {
 	private Dinosaur dino;
 	private List<Cactus> cactuses;
 	private boolean gameOver = false;
+	private BufferedImage gameOverImage;
 	
 	public Game() {
 		super();
@@ -38,6 +44,14 @@ public class Game extends Canvas {
 		this.setSize(600, 200);
 		this.setBackground(backgroundColor);
 		this.setForeground(foregroundColor);
+		
+		try {
+			gameOverImage = ImageIO.read(new File("res/game-over.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		dino = new Dinosaur();
 		cactuses = new ArrayList<Cactus>();
 		renderer = this::renderLevel;
@@ -53,7 +67,6 @@ public class Game extends Canvas {
 	}
 
 	public void render() {
-		this.clearScreen();
 		renderer.behave();
 	}
 
@@ -63,6 +76,7 @@ public class Game extends Canvas {
 	
 	// Renderers
 	private void renderLevel() {
+		this.clearScreen();
 		dino.render();
 		cactuses.forEach(c -> c.render());
 		drawFloor();
@@ -71,7 +85,7 @@ public class Game extends Canvas {
 	}
 	
 	private void renderGameOverScreen() {
-		g.drawString("GAME OVER", 200, 100);
+		g.drawImage(gameOverImage, 200, 100, null);
 		bufferStrategy.show();
 	}
 	
@@ -99,12 +113,13 @@ public class Game extends Canvas {
 		cactuses.forEach(c -> c.update());
 		filter(cactuses, this::cactusIsInsideBounds);
 		if(any(cactuses, c -> c.getHitBox().collidesWith(dino.getHitBox()))) {
+			dino.die();
 			gameOver = true;
 		}
 	}
 	
 	private void updateGameOverScreen() {
-		
+
 	}
 
 	// Utils
