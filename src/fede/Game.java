@@ -110,9 +110,9 @@ public class Game extends Canvas {
 		}
 
 		dino.update();
-		cactuses.forEach(c -> c.update());
+		cactuses.forEach(Cactus::update);
 		filter(cactuses, this::cactusIsInsideBounds);
-		if(any(cactuses, c -> c.getHitBox().collidesWith(dino.getHitBox()))) {
+		if(any(cactuses, cactus -> cactus.collidesWith(dino))) {
 			dino.die();
 			gameOver = true;
 		}

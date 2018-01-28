@@ -4,6 +4,9 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 
 import fede.Engine;
@@ -20,7 +23,8 @@ public class Dinosaur extends Entity {
 	private static final int v0 = 10;
 	private static final double grav = .7;
 	private int t = 0;
-	private Behaviour behaviour; 
+	private Behaviour behaviour;
+	private List<HitBox> hitBoxes; 
 	
 	public Dinosaur() {
 		sprite = new Image[4];
@@ -32,12 +36,15 @@ public class Dinosaur extends Entity {
 		y = y0;
 		image = sprite[stand_or_jump_state];
 		
+		hitBoxes = new ArrayList<HitBox>();
+		
 		this.run();
 	}
 	
 	@Override
 	public void render() {
 		g.drawImage(image, x, y, null);
+		this.renderHitboxes();
 	}
 
 	@Override
@@ -86,6 +93,17 @@ public class Dinosaur extends Entity {
 
 	public void die() {
 		image = sprite[lost_state];
+	}
+	
+	@Override
+	public List<HitBox> getHitBoxes() {
+		hitBoxes.clear();
+		HitBox headHitBox = new HitBox(x + 21, y, 19, 14), bodyHitBox = new HitBox(x , y + 14, 28, 12), feetHitBox = new HitBox(x + 10, y + 26, 12, 16);
+		hitBoxes.add(headHitBox);
+		hitBoxes.add(bodyHitBox);
+		hitBoxes.add(feetHitBox);
+		
+		return hitBoxes;
 	}
 }
 
