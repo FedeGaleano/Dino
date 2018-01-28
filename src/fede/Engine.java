@@ -33,7 +33,7 @@ public class Engine {
 		while(running) {
 			game.render();
 			game.update();
-			sleep(34);
+			sleep(10);
 			count++;
 		}
 	}

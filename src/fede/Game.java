@@ -105,7 +105,7 @@ public class Game extends Canvas {
 			return;
 		}
 		
-		if(Engine.count % 50 == 0) {
+		if(Engine.count % 200 == 0) {
 			cactuses.add(new Cactus(g));
 		}
 

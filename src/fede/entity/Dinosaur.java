@@ -17,8 +17,8 @@ public class Dinosaur extends Entity {
 	
 	// Character
 	private static final int y0 = 150;
-	private static final int v0 = 20;
-	private static final double grav = 2;
+	private static final int v0 = 10;
+	private static final double grav = .7;
 	private int t = 0;
 	private Behaviour behaviour; 
 	
@@ -71,7 +71,7 @@ public class Dinosaur extends Entity {
 	
 	/* Possible Behaviours */	
 	private void behaveAsRunning() {
-		imagePointer = (Engine.count / 3) % 2;
+		imagePointer = (Engine.count / 6) % 2;
 	}
 	
 	private void behaveAsJumping() {
