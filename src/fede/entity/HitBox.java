@@ -17,7 +17,15 @@ public class HitBox {
 	}
 	
 	public boolean collidesWith(HitBox another) {
-		return another.collidesWith(this.getUpperLeftCorner()) || another.collidesWith(this.getUpperRightCorner()) || another.collidesWith(this.getLowerLeftCorner()) || another.collidesWith(this.getLowerRightCorner());
+		return this.collidesInX(another) && this.collidesInY(another);
+	}
+	
+	public boolean collidesInX(HitBox another) {
+		return Math.abs(this.x0 + this.delta_x / 2 - (another.x0 + another.delta_x / 2)) <= (this.delta_x + another.delta_x) / 2;
+	}
+	
+	public boolean collidesInY(HitBox another) {
+		return Math.abs(this.y0 + this.delta_y / 2 - (another.y0 + another.delta_y / 2)) <= (this.delta_y + another.delta_y) / 2;
 	}
 	
 	public Point getUpperLeftCorner() {

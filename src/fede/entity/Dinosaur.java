@@ -44,7 +44,6 @@ public class Dinosaur extends Entity {
 	@Override
 	public void render() {
 		g.drawImage(image, x, y, null);
-		this.renderHitboxes();
 	}
 
 	@Override
