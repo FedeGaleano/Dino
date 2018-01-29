@@ -27,20 +27,4 @@ public class HitBox {
 	public boolean collidesInY(HitBox another) {
 		return Math.abs(this.y0 + this.delta_y / 2 - (another.y0 + another.delta_y / 2)) <= (this.delta_y + another.delta_y) / 2;
 	}
-	
-	public Point getUpperLeftCorner() {
-		return new Point(x0, y0);
-	}
-	
-	public Point getUpperRightCorner() {
-		return new Point(x0 + delta_x, y0);
-	}
-	
-	public Point getLowerLeftCorner() {
-		return new Point(x0, y0 + delta_y);
-	}
-	
-	public Point getLowerRightCorner() {
-		return new Point(x0 + delta_x, y0 + delta_y);
-	}
 }
