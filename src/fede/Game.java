@@ -128,7 +128,7 @@ public class Game extends Canvas {
 	}
 	
 	private void updateGameOverScreen() {
-
+		
 	}
 
 	// Utils
@@ -145,7 +145,16 @@ public class Game extends Canvas {
 	}
 	
 	public void restart() {
-		System.out.println("Restart");
+		dino.setInitialState();
+		cactuses.clear();
+		Engine.count = -1;
+		updater = this::updateLevel;
+		renderer = this::renderLevel;
+		
+		gameOver = false;
+		
+		gameOverListener.stop();
+		levelListener.start();
 	}
 }
 

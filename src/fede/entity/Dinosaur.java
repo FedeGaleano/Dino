@@ -33,12 +33,15 @@ public class Dinosaur extends Entity {
 		for (int i = 0; i < sprite.length; i++)
 			sprite[i] = takeSubimage(i);
 		
+		hitBoxes = new ArrayList<HitBox>();
+		
+		setInitialState();
+	}
+
+	public void setInitialState() {
 		x = x0;
 		y = y0;
 		image = sprite[stand_or_jump_state];
-		
-		hitBoxes = new ArrayList<HitBox>();
-		
 		this.run();
 	}
 	
