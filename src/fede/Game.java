@@ -2,7 +2,6 @@ package fede;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -15,10 +14,11 @@ import javax.imageio.ImageIO;
 
 import fede.entity.Cactus;
 import fede.entity.Dinosaur;
+import fede.listener.GameOverListener;
+import fede.listener.LevelListener;
 
 import static fede.utils.FedeCollections.filter;
 import static fede.utils.FedeCollections.any;
-import static javax.swing.SwingUtilities.invokeLater;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas {
@@ -31,6 +31,8 @@ public class Game extends Canvas {
 	private Graphics g;
 	private BufferStrategy bufferStrategy;
 	private Behaviour renderer, updater;
+	private LevelListener levelListener;
+	private GameOverListener gameOverListener;
 
 	// Sprites	
 	private Dinosaur dino;
@@ -63,7 +65,11 @@ public class Game extends Canvas {
 		this.createBufferStrategy(2);
 		bufferStrategy = this.getBufferStrategy();
 		g = bufferStrategy.getDrawGraphics();
-		g.setFont(new Font("a font", Font.BOLD, 24));
+		
+		levelListener = new LevelListener(Engine.window, this);
+		gameOverListener = new GameOverListener(Engine.window, this);
+		
+		levelListener.start();
 		dino.setGraphics(g);
 	}
 
@@ -103,6 +109,8 @@ public class Game extends Canvas {
 		if(gameOver) {
 			updater = this::updateGameOverScreen;
 			renderer = this::renderGameOverScreen;
+			levelListener.stop();
+			gameOverListener.start();
 			return;
 		}
 		
@@ -134,6 +142,10 @@ public class Game extends Canvas {
 	
 	public void makeDinosaurJump() {
 		dino.jump();
+	}
+	
+	public void restart() {
+		System.out.println("Restart");
 	}
 }
 

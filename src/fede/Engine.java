@@ -2,8 +2,6 @@ package fede;
 
 import javax.swing.SwingUtilities;
 
-import fede.listener.GameListener;
-
 public class Engine {
 	
 	public static int count = 0;
@@ -11,16 +9,15 @@ public class Engine {
 	private static Game game;
 	private static Thread mainLoopThread;
 	private static boolean running = false;
+	public static Window window;
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(Engine::setGuiThenGoToMainLoopThread);
 	}
 	
 	private static void setGuiThenGoToMainLoopThread() {
-		Window window = new Window(game = new Game());
+		window = new Window(game = new Game());
 		window.onClose(Engine::finish);
-		
-		new GameListener(window, game).start();
 		
 		mainLoopThread = new Thread(Engine::mainLoop);
 		mainLoopThread.start();
