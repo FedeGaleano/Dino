@@ -40,7 +40,7 @@ public abstract class Entity {
 		g.drawRect(hitBox.x0, hitBox.y0, hitBox.delta_x, hitBox.delta_y);
 	}
 	
-	public void renderHitboxes() {
+	public void renderHitBoxes() {
 		Color defaultColor = g.getColor();
 		g.setColor(Color.RED);
 		this.getHitBoxes().forEach(this::renderHitBox);
