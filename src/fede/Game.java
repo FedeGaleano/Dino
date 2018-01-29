@@ -37,6 +37,7 @@ public class Game extends Canvas {
 	private List<Cactus> cactuses;
 	private boolean gameOver = false;
 	private BufferedImage gameOverImage;
+	public static final int y_floor = 190;
 	
 	public Game() {
 		super();
@@ -85,12 +86,12 @@ public class Game extends Canvas {
 	}
 	
 	private void renderGameOverScreen() {
-		g.drawImage(gameOverImage, 200, 100, null);
+		g.drawImage(gameOverImage, 200, 80, null);
 		bufferStrategy.show();
 	}
 	
 	private void drawFloor() {
-		g.drawLine(0, 180, this.getWidth(), 180);
+		g.drawLine(0, y_floor, this.getWidth(), y_floor);
 	}
 
 	private void clearScreen() {

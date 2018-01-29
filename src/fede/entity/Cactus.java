@@ -8,8 +8,13 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import fede.Game;
+
 public class Cactus extends Entity {
+	
 	private List<HitBox> hitBoxes;
+	
+	private static final int y0 = Game.y_floor + 10, x0 = 650;
 	
 	public Cactus() {
 		try {
@@ -21,8 +26,8 @@ public class Cactus extends Entity {
 		
 		hitBoxes = new ArrayList<HitBox>();
 
-		x = 650;
-		y = 145;
+		x = x0;
+		y = y0;
 	}
 	
 	public Cactus(Graphics g) {
@@ -37,7 +42,7 @@ public class Cactus extends Entity {
 	
 	@Override
 	public void render() {
-		g.drawImage(image, x, y, null);
+		g.drawImage(image, x, y - image.getHeight(null), null);
 	}
 	
 	@Override

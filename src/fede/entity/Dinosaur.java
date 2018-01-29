@@ -10,6 +10,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import fede.Engine;
+import fede.Game;
 
 import static java.lang.Math.pow;
 
@@ -19,7 +20,7 @@ public class Dinosaur extends Entity {
 	private static final int running_state_1 = 0, running_state_2 = 1, stand_or_jump_state = 2, lost_state = 3;
 	
 	// Character
-	private static final int y0 = 150;
+	private static final int y0 = Game.y_floor + 10, x0 = 100;
 	private static final int v0 = 10;
 	private static final double grav = .7;
 	private int t = 0;
@@ -32,7 +33,7 @@ public class Dinosaur extends Entity {
 		for (int i = 0; i < sprite.length; i++)
 			sprite[i] = takeSubimage(i);
 		
-		x = 100;
+		x = x0;
 		y = y0;
 		image = sprite[stand_or_jump_state];
 		
@@ -43,7 +44,7 @@ public class Dinosaur extends Entity {
 	
 	@Override
 	public void render() {
-		g.drawImage(image, x, y, null);
+		g.drawImage(image, x, y - image.getHeight(null), null);
 	}
 
 	@Override
