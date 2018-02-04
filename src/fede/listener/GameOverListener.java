@@ -6,12 +6,9 @@ import fede.Game;
 import fede.Window;
 
 public class GameOverListener extends FedeListener {
-
-	private Game game;
 	
-	public GameOverListener(Window window, Game game) {
-		super(window);
-		this.game = game;
+	public GameOverListener(Game game) {
+		super(game);
 		this.onPressed(this::restartIfSpaceKey);
 	}
 	

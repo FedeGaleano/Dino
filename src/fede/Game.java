@@ -31,8 +31,8 @@ public class Game extends Canvas {
 	private Graphics g;
 	private BufferStrategy bufferStrategy;
 	private Behaviour renderer, updater;
-	private LevelListener levelListener;
-	private GameOverListener gameOverListener;
+	private LevelListener levelListener = new LevelListener(this);
+	private GameOverListener gameOverListener = new GameOverListener(this);
 
 	// Sprites	
 	private Dinosaur dino;
@@ -47,6 +47,8 @@ public class Game extends Canvas {
 		this.setSize(600, 200);
 		this.setBackground(backgroundColor);
 		this.setForeground(foregroundColor);
+		this.setFocusable(true);
+		this.requestFocus();
 		
 		try {
 			gameOverImage = ImageIO.read(new File("res/game-over.png"));
@@ -65,10 +67,6 @@ public class Game extends Canvas {
 		this.createBufferStrategy(2);
 		bufferStrategy = this.getBufferStrategy();
 		g = bufferStrategy.getDrawGraphics();
-		
-		levelListener = new LevelListener(Engine.window, this);
-		gameOverListener = new GameOverListener(Engine.window, this);
-		
 		levelListener.start();
 		dino.setGraphics(g);
 	}
@@ -114,7 +112,7 @@ public class Game extends Canvas {
 			return;
 		}
 		
-		if(Engine.count % 200 == 0) {
+		if(Engine.count % 150 == 0) {
 			cactuses.add(new Cactus(g));
 		}
 

@@ -3,28 +3,28 @@ package fede.listener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import fede.Window;
+import fede.Game;
 
 public class FedeListener implements KeyListener
 {	
-	private Window window;
+	protected Game game;
 
 	private KeyCallback pressedCallback = e -> {}, releasedCallback = e -> {}, typedCallback = e -> {};
 	
-	public FedeListener(Window window)
+	public FedeListener(Game game)
 	{
-		this.window = window;
+		this.game = game;
 	}
 	
 	public FedeListener start()
 	{
-		window.addKeyListener(this);
+		game.addKeyListener(this);
 		return this;
 	}
 	
 	public FedeListener stop()
 	{
-		window.removeKeyListener(this);
+		game.removeKeyListener(this);
 		return this;
 	}
 	
