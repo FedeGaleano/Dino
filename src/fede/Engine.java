@@ -4,6 +4,8 @@ import javax.swing.SwingUtilities;
 
 public class Engine {
 	
+	private static final int millis_per_frame = 15;
+
 	public static int count = 0;
 	
 	private static Game game;
@@ -28,14 +30,20 @@ public class Engine {
 		running = true;
 		
 		while(running) {
+			long startTime = now();
 			game.render();
 			game.update();
-			sleep(15);
+			long processingTime = now() - startTime;
+			sleep(millis_per_frame - processingTime);
 			count++;
 		}
 	}
 	
-	private static void sleep(int millis) {
+	private static long now() {
+		return System.currentTimeMillis();
+	}
+	
+	private static void sleep(long millis) {
 		try {
 			Thread.sleep(millis);
 		}
