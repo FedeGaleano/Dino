@@ -17,7 +17,7 @@ import static java.lang.Math.pow;
 public class Dinosaur extends Entity {
 	private Image sprite[];
 	private int imagePointer;
-	private static final int running_state_1 = 0, running_state_2 = 1, stand_or_jump_state = 2, lost_state = 3;
+	private static final int running_state_1 = 0/*, running_state_2 = 1*/, stand_or_jump_state = 2, lost_state = 3;
 	
 	// Character
 	private static final int y0 = Game.y_floor + 10, x0 = 100;
