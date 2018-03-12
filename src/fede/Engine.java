@@ -45,7 +45,7 @@ public class Engine {
 	
 	private static void sleep(long millis) {
 		try {
-			Thread.sleep(millis);
+			Thread.sleep(Math.max(millis, 0));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
