@@ -3,7 +3,6 @@ package fede.listener;
 import java.awt.event.KeyEvent;
 
 import fede.Game;
-import fede.Window;
 
 public class GameOverListener extends FedeListener {
 	
