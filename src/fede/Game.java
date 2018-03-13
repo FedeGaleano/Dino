@@ -142,10 +142,9 @@ public class Game extends Canvas {
 			};
 		});
 	//	filter(cactuses, cactus -> !(passedCactuses.contains(cactus)));
-		for (Iterator<Cactus> iterator = passedCactuses.iterator(); iterator.hasNext();) {
-			Cactus cactus = (Cactus) iterator.next();
-			if(cactuses.contains(cactus)) cactuses.remove(cactus);
-		}
+		passedCactuses.forEach(passedCactus -> {
+			if(cactuses.contains(passedCactus)) cactuses.remove(passedCactus);
+		});
 	}
 	
 	private void updateGameOverScreen() {
