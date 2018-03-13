@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -36,10 +37,12 @@ public class Game extends Canvas {
 
 	// Sprites	
 	private Dinosaur dino;
-	private List<Cactus> cactuses;
+	private List<Cactus> cactuses, passedCactuses;
 	private boolean gameOver = false;
 	private BufferedImage gameOverImage;
+	public Window window;
 	public static final int y_floor = 190;
+	private int score;
 	
 	public Game() {
 		super();
@@ -57,8 +60,10 @@ public class Game extends Canvas {
 			e.printStackTrace();
 		}
 		
+		score = 0;
 		dino = new Dinosaur();
 		cactuses = new ArrayList<Cactus>();
+		passedCactuses = new ArrayList<Cactus>();
 		renderer = this::renderLevel;
 		updater = this::updateLevel;
 	}
@@ -84,8 +89,9 @@ public class Game extends Canvas {
 		this.clearScreen();
 		dino.render();
 		cactuses.forEach(c -> c.render());
+		passedCactuses.forEach(c -> c.render());
 		drawFloor();
-
+		drawScore();
 		bufferStrategy.show();
 	}
 	
@@ -96,6 +102,10 @@ public class Game extends Canvas {
 	
 	private void drawFloor() {
 		g.drawLine(0, y_floor, this.getWidth(), y_floor);
+	}
+	
+	private void drawScore() {
+		window.appendText("score: " + score);
 	}
 
 	private void clearScreen() {
@@ -118,10 +128,23 @@ public class Game extends Canvas {
 
 		dino.update();
 		cactuses.forEach(Cactus::update);
-		filter(cactuses, this::cactusIsInsideBounds);
+		passedCactuses.forEach(Cactus::update);
+		filter(passedCactuses, this::cactusIsInsideBounds);
 		if(any(cactuses, cactus -> cactus.collidesWith(dino))) {
 			dino.die();
 			gameOver = true;
+			return;
+		}
+		cactuses.forEach(cactus -> {
+			if(cactus.getDefaultHitBox().x0 + cactus.getDefaultHitBox().delta_x < dino.getDefaultHitBox().x0) /*If dino passed the cactus*/{
+				score++;
+				passedCactuses.add(cactus);
+			};
+		});
+	//	filter(cactuses, cactus -> !(passedCactuses.contains(cactus)));
+		for (Iterator<Cactus> iterator = passedCactuses.iterator(); iterator.hasNext();) {
+			Cactus cactus = (Cactus) iterator.next();
+			if(cactuses.contains(cactus)) cactuses.remove(cactus);
 		}
 	}
 	
@@ -145,7 +168,9 @@ public class Game extends Canvas {
 	public void restart() {
 		dino.setInitialState();
 		cactuses.clear();
+		passedCactuses.clear();
 		Engine.count = -1;
+		score = 0;
 		updater = this::updateLevel;
 		renderer = this::renderLevel;
 		

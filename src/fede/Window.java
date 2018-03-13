@@ -9,11 +9,17 @@ import javax.swing.JFrame;
 public class Window extends JFrame {
 	
 	private Game game;
-
+	private static final String baseText = "Dino Game";
+	
 	public Window(Game game) {
-		super("Dino Game");
+		super(baseText);
 		this.game = game;
+		this.game.window = this;
 		this.set();
+	}
+	
+	public void appendText(String text) {
+		this.setTitle(baseText + " | " + text);
 	}
 	
 	private void set() {
