@@ -148,7 +148,7 @@ public class Game extends Canvas {
 	}
 	
 	private Cactus generateCactus() {
-		return new Cactus(g);
+		return new Cactus(g, Cactus.CACTUS_2);
 	}
 	
 	private void updateGameOverScreen() {

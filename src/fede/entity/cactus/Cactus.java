@@ -14,13 +14,15 @@ import fede.entity.HitBox;
 
 public class Cactus extends Entity {
 	
+	public static final byte CACTUS_1 = 1, CACTUS_2 = 2, CACTUS_3 = 3, CACTUS_4 = 4, CACTUS_5 = 5, CACTUS_6 = 6; 
+	
 	private List<HitBox> hitBoxes;
 	
 	private static final int y0 = Game.y_floor + 10, x0 = 650;
 	
-	public Cactus() {
+	public Cactus(int selectedCactus) {
 		try {
-			image = ImageIO.read(new File("res/cactus4.png"));
+			image = ImageIO.read(new File("res/cactus" + selectedCactus + ".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,8 +34,8 @@ public class Cactus extends Entity {
 		y = y0;
 	}
 	
-	public Cactus(Graphics g) {
-		this();
+	public Cactus(Graphics g, int selectedCactus) {
+		this(selectedCactus);
 		this.setGraphics(g);
 	}
 	
