@@ -13,8 +13,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import fede.entity.Cactus;
 import fede.entity.Dinosaur;
+import fede.entity.cactus.Cactus;
 import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
 
@@ -122,8 +122,8 @@ public class Game extends Canvas {
 			return;
 		}
 		
-		if(Engine.count % 150 == 0) {
-			cactuses.add(new Cactus(g));
+		if(Engine.count % 50 == 0) {
+			cactuses.add(generateCactus());
 		}
 
 		dino.update();
@@ -145,6 +145,10 @@ public class Game extends Canvas {
 		passedCactuses.forEach(passedCactus -> {
 			if(cactuses.contains(passedCactus)) cactuses.remove(passedCactus);
 		});
+	}
+	
+	private Cactus generateCactus() {
+		return new Cactus(g);
 	}
 	
 	private void updateGameOverScreen() {

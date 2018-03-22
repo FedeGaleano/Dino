@@ -1,4 +1,4 @@
-package fede.entity;
+package fede.entity.cactus;
 
 import java.awt.Graphics;
 import java.io.File;
@@ -9,6 +9,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import fede.Game;
+import fede.entity.Entity;
+import fede.entity.HitBox;
 
 public class Cactus extends Entity {
 	
