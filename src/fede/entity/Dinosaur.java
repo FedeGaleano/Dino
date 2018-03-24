@@ -49,6 +49,7 @@ public class Dinosaur extends Entity {
 	@Override
 	public void render() {
 		g.drawImage(image, x, y - image.getHeight(null), null);
+		this.renderHitBoxes();
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class Dinosaur extends Entity {
 	@Override
 	public List<HitBox> getHitBoxes() {
 		hitBoxes.clear();
-		HitBox headHitBox = new HitBox(x + 21, y, 19, 14), bodyHitBox = new HitBox(x , y + 14, 28, 12), feetHitBox = new HitBox(x + 10, y + 26, 12, 16);
+		HitBox headHitBox = new HitBox(x + 21, y - 42, 19, 14), bodyHitBox = new HitBox(x , y + 14 - 42, 28, 12), feetHitBox = new HitBox(x + 10, y + 26 - 42, 12, 16);
 		hitBoxes.add(headHitBox);
 		hitBoxes.add(bodyHitBox);
 		hitBoxes.add(feetHitBox);
