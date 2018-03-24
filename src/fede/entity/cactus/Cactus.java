@@ -14,13 +14,16 @@ import fede.entity.HitBox;
 
 public class Cactus extends Entity {
 	
-	public static final byte CACTUS_1 = 1, CACTUS_2 = 2, CACTUS_3 = 3, CACTUS_4 = 4, CACTUS_5 = 5, CACTUS_6 = 6; 
+	public static final byte CACTUS_1 = 1, CACTUS_2 = 2, CACTUS_3 = 3, CACTUS_4 = 4, CACTUS_5 = 5, CACTUS_6 = 6;
+	private int selectedCactus;
 	
 	private List<HitBox> hitBoxes;
 	
 	private static final int y0 = Game.y_floor + 10, x0 = 650;
 	
 	public Cactus(int selectedCactus) {
+		this.selectedCactus = selectedCactus;
+		
 		try {
 			image = ImageIO.read(new File("res/cactus" + selectedCactus + ".png"));
 		} catch (IOException e) {
@@ -47,14 +50,43 @@ public class Cactus extends Entity {
 	@Override
 	public void render() {
 		g.drawImage(image, x, y - image.getHeight(null), null);
+		this.renderHitBoxes();
 	}
 	
 	@Override
 	public List<HitBox> getHitBoxes() {
 		hitBoxes.clear();
-		HitBox trunk = new HitBox(x + 7, y, 5, 45), leaves = new HitBox(x, y + 10, 20, 17);
-		hitBoxes.add(trunk);
-		hitBoxes.add(leaves);
+		
+		switch(selectedCactus) {
+			case CACTUS_1://TODO
+				hitBoxes.add(this.getDefaultHitBox());
+				break;
+			case CACTUS_2://TODO
+				hitBoxes.add(this.getDefaultHitBox());
+				break;
+			case CACTUS_3://TODO
+				hitBoxes.add(this.getDefaultHitBox());
+				break;
+			case CACTUS_4: {
+				HitBox trunk = new HitBox(x + 7, y - 45, 5, 45), leaves = new HitBox(x, y + 10 - 45, 20, 17);
+				hitBoxes.add(trunk);
+				hitBoxes.add(leaves);
+			}
+				break;
+			case CACTUS_5://TODO
+				hitBoxes.add(this.getDefaultHitBox());
+				break;
+			case CACTUS_6://TODO
+				hitBoxes.add(this.getDefaultHitBox());
+				break;
+			default:
+				throw new RuntimeException("Not a valid Cactus");
+		}
 		return hitBoxes;
+	}
+	
+	@Override
+	public HitBox getDefaultHitBox() {
+		return new HitBox(x, y - image.getHeight(null), image.getWidth(null), image.getHeight(null));
 	}
 }
