@@ -125,7 +125,7 @@ public class Game extends Canvas {
 		}
 		
 		if(distanceToLastCactus == separationBetweenLastAndNextCactus) {
-			cactuses.add(generateCactus());
+			cactuses.add(randomCactus());
 			separationBetweenLastAndNextCactus = random.between(50, 120);
 			distanceToLastCactus = 0;
 		}
@@ -152,8 +152,8 @@ public class Game extends Canvas {
 		});
 	}
 	
-	private Cactus generateCactus() {
-		return new Cactus(g, (int) Math.round(Math.random() * 5) + 1);
+	private Cactus randomCactus() {
+		return new Cactus(g, random.between(1, 6));
 	}
 	
 	private void updateGameOverScreen() {
