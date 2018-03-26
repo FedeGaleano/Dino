@@ -57,15 +57,15 @@ public class Cactus extends Entity {
 		
 		switch(selectedCactus) {
 			case CACTUS_1: {
-				int yBase = 36;
-				HitBox leaves = new HitBox(x, y - yBase, 70, 19), trunk = new HitBox(x + 6, y - image.getHeight(null), 58, image.getHeight(null));
+				int yBase = 32;
+				HitBox leaves = new HitBox(x + 2, y - yBase, 67, 13), trunk = new HitBox(x + 6, y - (image.getHeight(null) - 2), 58, image.getHeight(null) - 2);
 				hitBoxes.add(leaves);
 				hitBoxes.add(trunk);
 			}
 				break;
 			case CACTUS_2: {
 				int yBase = 25;
-				HitBox leaves = new HitBox(x, y - yBase, 49, 12), trunk = new HitBox(x + 5, y - image.getHeight(null), 38, image.getHeight(null));
+				HitBox leaves = new HitBox(x, y - yBase, 47, 12), trunk = new HitBox(x + 6, y - image.getHeight(null), 38, image.getHeight(null));
 				hitBoxes.add(leaves);
 				hitBoxes.add(trunk);
 			}
@@ -91,8 +91,10 @@ public class Cactus extends Entity {
 			}
 				break;
 			case CACTUS_6: {
-				HitBox trunk = new HitBox(x + 7, y - 45, 28, 45), leaves = new HitBox(x, y + 10 - 45, 42, 17);
-				hitBoxes.add(trunk);
+				int height = 45;
+				HitBox trunk1 = new HitBox(x + 7, y - height, 5, height), trunk2 = new HitBox(x + 29, y - height, 5, height), leaves = new HitBox(x, y + 12 - height, 42, 15);
+				hitBoxes.add(trunk1);
+				hitBoxes.add(trunk2);
 				hitBoxes.add(leaves);
 			}
 				break;
