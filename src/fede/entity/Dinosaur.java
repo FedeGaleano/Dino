@@ -21,8 +21,8 @@ public class Dinosaur extends Entity {
 	
 	// Character
 	private static final int y0 = Game.y_floor + 10, x0 = 100;
-	private static final int v0 = 11;
-	private static final double grav = .7;
+	private static final int v0 = 10;
+	private static final double grav = .5;
 	private int t;
 	private Behaviour behaviour;
 	private List<HitBox> hitBoxes; 
