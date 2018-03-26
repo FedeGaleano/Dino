@@ -13,8 +13,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import fede.entity.Cactus;
 import fede.entity.Dinosaur;
-import fede.entity.cactus.Cactus;
 import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
 
@@ -34,6 +34,7 @@ public class Game extends Canvas {
 	private Behaviour renderer, updater;
 	private LevelListener levelListener = new LevelListener(this);
 	private GameOverListener gameOverListener = new GameOverListener(this);
+	private Random random = new Random();
 
 	// Sprites	
 	private Dinosaur dino;
@@ -43,6 +44,7 @@ public class Game extends Canvas {
 	public Window window;
 	public static final int y_floor = 190;
 	private int score;
+	private int distanceToLastCactus = 0, separationBetweenLastAndNextCactus = 70;
 	
 	public Game() {
 		super();
@@ -122,9 +124,12 @@ public class Game extends Canvas {
 			return;
 		}
 		
-		if(Engine.count % 50 == 0) {
+		if(distanceToLastCactus == separationBetweenLastAndNextCactus) {
 			cactuses.add(generateCactus());
+			separationBetweenLastAndNextCactus = random.between(50, 120);
+			distanceToLastCactus = 0;
 		}
+		++distanceToLastCactus;
 
 		dino.update();
 		cactuses.forEach(Cactus::update);
@@ -174,6 +179,7 @@ public class Game extends Canvas {
 		passedCactuses.clear();
 		Engine.count = -1;
 		score = 0;
+		distanceToLastCactus = 0;
 		updater = this::updateLevel;
 		renderer = this::renderLevel;
 		
@@ -186,4 +192,10 @@ public class Game extends Canvas {
 
 interface Behaviour {
 	public abstract void behave();
+}
+
+class Random {
+	public int between(int min, int max) {
+		return (int) Math.round(Math.random() * (max - min) + min);
+	}
 }
