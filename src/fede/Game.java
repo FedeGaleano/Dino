@@ -131,6 +131,7 @@ public class Game extends Canvas {
 		++distanceToLastCactus;
 
 		dino.update();
+		floor.update();
 		cactuses.forEach(Cactus::update);
 		passedCactuses.forEach(Cactus::update);
 		filter(passedCactuses, this::cactusIsInsideBounds);
