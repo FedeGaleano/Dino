@@ -13,6 +13,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import fede.entity.Cactus;
+import fede.entity.Cloud;
 import fede.entity.Dinosaur;
 import fede.entity.Floor;
 import fede.listener.GameOverListener;
@@ -41,6 +42,7 @@ public class Game extends Canvas {
 	// Sprites	
 	private Dinosaur dino;
 	private Floor floor = new Floor();
+	private List<Cloud> clouds;
 	private List<Cactus> cactuses, passedCactuses;
 	private boolean gameOver = false;
 	private BufferedImage gameOverImage;
@@ -68,6 +70,7 @@ public class Game extends Canvas {
 		dino = new Dinosaur();
 		cactuses = new ArrayList<Cactus>();
 		passedCactuses = new ArrayList<Cactus>();
+		clouds = new ArrayList<Cloud>();
 		renderer = this::renderLevel;
 		updater = this::updateLevel;
 	}
@@ -96,6 +99,7 @@ public class Game extends Canvas {
 		cactuses.forEach(c -> c.render());
 		passedCactuses.forEach(c -> c.render());
 		floor.render();
+		clouds.forEach(c -> c.render());
 		renderScore();
 		bufferStrategy.show();
 	}
@@ -123,6 +127,10 @@ public class Game extends Canvas {
 			return;
 		}
 		
+		if(Engine.count % 500 == 0) {
+			clouds.add(new Cloud(g));
+		}
+		
 		if(distanceToLastCactus == separationBetweenLastAndNextCactus) {
 			cactuses.add(randomCactus());
 			separationBetweenLastAndNextCactus = random.between(50, 120);
@@ -132,6 +140,7 @@ public class Game extends Canvas {
 
 		dino.update();
 		floor.update();
+		clouds.forEach(Cloud::update);
 		cactuses.forEach(Cactus::update);
 		passedCactuses.forEach(Cactus::update);
 		filter(passedCactuses, this::cactusIsInsideBounds);
