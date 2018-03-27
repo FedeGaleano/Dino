@@ -144,6 +144,7 @@ public class Game extends Canvas {
 		cactuses.forEach(Cactus::update);
 		passedCactuses.forEach(Cactus::update);
 		filter(passedCactuses, this::cactusIsInsideBounds);
+		filter(clouds, this::cloudIsInsideBounds);
 		if(any(cactuses, cactus -> cactus.collidesWith(dino))) {
 			dino.die();
 			gameOver = true;
@@ -172,6 +173,10 @@ public class Game extends Canvas {
 	// Utils
 	private boolean cactusIsInsideBounds(Cactus cactus) {
 		return cactus.getCoordinates().x > -100;
+	}
+	
+	private boolean cloudIsInsideBounds(Cloud cloud) {
+		return cloud.getCoordinates().x > -100;
 	}
 	
 	public void free() {
