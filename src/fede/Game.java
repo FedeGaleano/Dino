@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 
 import fede.entity.Cactus;
 import fede.entity.Dinosaur;
+import fede.entity.Floor;
 import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
 
@@ -23,6 +24,8 @@ import static fede.utils.FedeCollections.any;
 @SuppressWarnings("serial")
 public class Game extends Canvas {
 
+	public static final int CANVAS_HEIGHT = 200;
+	public static final int CANVAS_WIDTH = 600;
 	// Colors
 	private static final Color foregroundColor = Color.decode("#535353");
 	private static final Color backgroundColor = Color.decode("#F7F7F7");
@@ -37,18 +40,18 @@ public class Game extends Canvas {
 
 	// Sprites	
 	private Dinosaur dino;
+	private Floor floor = new Floor();
 	private List<Cactus> cactuses, passedCactuses;
 	private boolean gameOver = false;
 	private BufferedImage gameOverImage;
 	public Window window;
-	public static final int y_floor = 190;
 	private int score;
 	private int distanceToLastCactus = 0, separationBetweenLastAndNextCactus = 70;
 	
 	public Game() {
 		super();
 		this.setIgnoreRepaint(true);
-		this.setSize(600, 200);
+		this.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 		this.setBackground(backgroundColor);
 		this.setForeground(foregroundColor);
 		this.setFocusable(true);
@@ -75,6 +78,7 @@ public class Game extends Canvas {
 		g = bufferStrategy.getDrawGraphics();
 		levelListener.start();
 		dino.setGraphics(g);
+		floor.setGraphics(g);
 	}
 
 	public void render() {
@@ -91,7 +95,7 @@ public class Game extends Canvas {
 		dino.render();
 		cactuses.forEach(c -> c.render());
 		passedCactuses.forEach(c -> c.render());
-		renderFloor();
+		floor.render();
 		renderScore();
 		bufferStrategy.show();
 	}
@@ -99,10 +103,6 @@ public class Game extends Canvas {
 	private void renderGameOverScreen() {
 		g.drawImage(gameOverImage, 200, 80, null);
 		bufferStrategy.show();
-	}
-	
-	private void renderFloor() {
-		g.drawLine(0, y_floor, this.getWidth(), y_floor);
 	}
 	
 	private void renderScore() {

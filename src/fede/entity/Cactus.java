@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import fede.Game;
-
 public class Cactus extends Entity {
 	
 	private static final int velocity = 5;
@@ -18,7 +16,7 @@ public class Cactus extends Entity {
 	
 	private List<HitBox> hitBoxes;
 	
-	private static final int y0 = Game.y_floor + 10, x0 = 650;
+	private static final int y0 = Floor.Y + 10, x0 = 650;
 	
 	public Cactus(int selectedCactus) {
 		this.selectedCactus = selectedCactus;
