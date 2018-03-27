@@ -91,8 +91,8 @@ public class Game extends Canvas {
 		dino.render();
 		cactuses.forEach(c -> c.render());
 		passedCactuses.forEach(c -> c.render());
-		drawFloor();
-		drawScore();
+		renderFloor();
+		renderScore();
 		bufferStrategy.show();
 	}
 	
@@ -101,11 +101,11 @@ public class Game extends Canvas {
 		bufferStrategy.show();
 	}
 	
-	private void drawFloor() {
+	private void renderFloor() {
 		g.drawLine(0, y_floor, this.getWidth(), y_floor);
 	}
 	
-	private void drawScore() {
+	private void renderScore() {
 		window.appendText("score: " + score);
 	}
 
