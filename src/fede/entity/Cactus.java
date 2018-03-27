@@ -12,6 +12,7 @@ import fede.Game;
 
 public class Cactus extends Entity {
 	
+	private static final int velocity = 5;
 	public static final byte CACTUS_1 = 1, CACTUS_2 = 2, CACTUS_3 = 3, CACTUS_4 = 4, CACTUS_5 = 5, CACTUS_6 = 6;
 	private int selectedCactus;
 	
@@ -42,7 +43,7 @@ public class Cactus extends Entity {
 	
 	@Override
 	public void update() {
-		x -= 5;
+		x -= velocity;
 	}
 	
 	@Override
