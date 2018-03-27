@@ -133,7 +133,7 @@ public class Game extends Canvas {
 		
 		if(distanceToLastCactus == separationBetweenLastAndNextCactus) {
 			cactuses.add(randomCactus());
-			separationBetweenLastAndNextCactus = random.between(50, 120);
+			separationBetweenLastAndNextCactus = random.between(40, 120);
 			distanceToLastCactus = 0;
 		}
 		++distanceToLastCactus;
