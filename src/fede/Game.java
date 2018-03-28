@@ -49,6 +49,7 @@ public class Game extends Canvas {
 	public Window window;
 	private int score;
 	private int distanceToLastCactus = 0, separationBetweenLastAndNextCactus = 70;
+	private int distanceToLastCloud = 0, separationBetweenLastAndNextCloud = 350;
 	
 	public Game() {
 		super();
@@ -127,9 +128,12 @@ public class Game extends Canvas {
 			return;
 		}
 		
-		if(Engine.count % 500 == 0) {
-			clouds.add(new Cloud(g));
+		if(distanceToLastCloud == separationBetweenLastAndNextCloud) {
+			clouds.add(new Cloud(g, 700, random.between(0, 100)));
+			separationBetweenLastAndNextCloud = random.between(350, 1050);
+			distanceToLastCloud = 0;
 		}
+		++distanceToLastCloud;
 		
 		if(distanceToLastCactus == separationBetweenLastAndNextCactus) {
 			cactuses.add(randomCactus());

@@ -9,10 +9,10 @@ import javax.imageio.ImageIO;
 public class Cloud extends Entity {
 
 	private float virtual_x;
-	
-	public Cloud() {
-		x = 700;
-		y = 50;
+	//x = 700
+	public Cloud(int x, int y) {
+		this.x = x;
+		this.y = y;
 		
 		virtual_x = x;
 		
@@ -24,8 +24,8 @@ public class Cloud extends Entity {
 		}
 	}
 	
-	public Cloud(Graphics g) {
-		this();
+	public Cloud(Graphics g, int x, int y) {
+		this(x, y);
 		this.setGraphics(g);
 	}
 	
