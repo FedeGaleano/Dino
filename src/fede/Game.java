@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class Game extends Canvas {
 	// Graphic tools
 	private Graphics g;
 	private BufferStrategy bufferStrategy;
+	private BufferedImage image = new BufferedImage(CANVAS_WIDTH, CANVAS_HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private int[] pixels = ((DataBufferInt)(image.getRaster().getDataBuffer())).getData();
 	private Behaviour renderer, updater;
 	private LevelListener levelListener = new LevelListener(this);
 	private GameOverListener gameOverListener = new GameOverListener(this);
