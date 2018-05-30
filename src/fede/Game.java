@@ -99,11 +99,11 @@ public class Game extends Canvas {
 	// Renderers
 	private void renderLevel() {
 		this.clearScreen();
-		cactuses.forEach(c -> c.render());
-		passedCactuses.forEach(c -> c.render());
-		floor.render();
-		clouds.forEach(c -> c.render());
-		dino.render();
+		cactuses.forEach(c -> c.renderOn(pixels));
+		passedCactuses.forEach(c -> c.renderOn(pixels));
+		floor.renderOn(pixels);
+		clouds.forEach(c -> c.renderOn(pixels));
+		dino.renderOn(pixels);
 		renderScore();
 		bufferStrategy.show();
 	}

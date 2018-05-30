@@ -29,7 +29,7 @@ public abstract class Entity {
 		return Arrays.asList(new HitBox[]{this.getDefaultHitBox()});
 	}
 	
-	public abstract void render(); 
+	public abstract void renderOn(int pixels[]);
 	public abstract void update();
 	
 	public void renderDefaultHitBox() {

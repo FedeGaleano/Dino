@@ -45,7 +45,7 @@ public class Cactus extends Entity {
 	}
 	
 	@Override
-	public void render() {
+	public void renderOn(int pixels[]) {
 		g.drawImage(image, x, y - image.getHeight(null), null);
 	//	this.renderHitBoxes();
 	}

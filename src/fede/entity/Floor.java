@@ -13,7 +13,7 @@ public class Floor extends Entity {
 	}
 	
 	@Override
-	public void render() {
+	public void renderOn(int pixels[]) {
 		g.drawLine(0, y, Game.CANVAS_WIDTH + securityWIDTH, y);
 		for(int i = x % Game.CANVAS_WIDTH; i < Game.CANVAS_WIDTH; i += 40) {
 			renderLittleLine(i, y);
