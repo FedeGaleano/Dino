@@ -1,5 +1,6 @@
 package fede;
 
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -24,11 +25,13 @@ public class Window extends JFrame {
 	
 	private void set() {
 		this.setIgnoreRepaint(true);
-		this.getContentPane().add(game);
+		this.setLayout(new BorderLayout());
+		this.add(game);
 		this.pack();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.revalidate();
 		this.setVisible(true);
 	}
 

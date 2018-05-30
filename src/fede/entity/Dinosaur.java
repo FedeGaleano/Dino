@@ -1,6 +1,7 @@
 package fede.entity;
 
-import java.awt.Image;
+import static java.lang.Math.pow;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,10 +13,9 @@ import javax.imageio.ImageIO;
 import fede.Engine;
 import fede.Game;
 
-import static java.lang.Math.pow;
-
 public class Dinosaur extends Entity {
-	private Image sprite[];
+	private int sprite[][];
+	private int pixels[], width, height;
 	private int imagePointer;
 	private static final int running_state_1 = 0/*, running_state_2 = 1*/, stand_or_jump_state = 2, lost_state = 3;
 	
@@ -28,10 +28,14 @@ public class Dinosaur extends Entity {
 	private List<HitBox> hitBoxes; 
 	
 	public Dinosaur() {
-		sprite = new Image[4];
+		super();
+		sprite = new int[4][];
 
+		width = 40;
+		height = 42;
+		
 		for (int i = 0; i < sprite.length; i++)
-			sprite[i] = takeSubimage(i);
+			sprite[i] = takeSubimage(i).getRGB(0, 0, width, height, null, 0, width);
 		
 		hitBoxes = new ArrayList<HitBox>();
 		
@@ -42,26 +46,34 @@ public class Dinosaur extends Entity {
 		x = x0;
 		y = y0;
 		t = 0;
-		image = sprite[stand_or_jump_state];
+		this.pixels = sprite[stand_or_jump_state];
 		this.run();
 	}
-	
+
 	@Override
-	public void renderOn(int pixels[]) {
-		g.drawImage(image, x, y - image.getHeight(null), null);
-	//	this.renderHitBoxes();
+	public void renderOn(int[] destinationBuffer) {
+		
+		int initialPoint = (y - height) * Game.CANVAS_WIDTH + x;
+		
+		for (int i = 0; i < this.pixels.length; i++) {
+			int yy = i / width;
+			int xx = i % width;
+			if(this.pixels[i] != 0)
+				destinationBuffer[initialPoint + (yy * Game.CANVAS_WIDTH) + xx] = this.pixels[i];
+		}
+		
 	}
 
 	@Override
 	public void update() {
 		behaviour.behave();
-		image = sprite[imagePointer];
+		this.pixels = sprite[imagePointer];
 	}
 
 	private BufferedImage takeSubimage(int nthSubimage) {
 		BufferedImage subimage = null;
 		try {
-			subimage = ImageIO.read(new File("res/Dinosaur.png")).getSubimage(nthSubimage * 40, 0, 40, 42);
+			subimage = ImageIO.read(new File("res/Dinosaur.png")).getSubimage(nthSubimage * width, 0, width, height);
 		}
 		catch(IOException e) {
 			System.err.println("Couldn't open dinosaur spritesheet file");
@@ -97,7 +109,7 @@ public class Dinosaur extends Entity {
 	}
 
 	public void die() {
-		image = sprite[lost_state];
+		this.pixels = sprite[lost_state];
 	}
 	
 	@Override
@@ -109,6 +121,11 @@ public class Dinosaur extends Entity {
 		hitBoxes.add(feetHitBox);
 		
 		return hitBoxes;
+	}
+	
+	@Override
+	public HitBox getDefaultHitBox() {
+		return new HitBox(x, y, width, height);
 	}
 }
 

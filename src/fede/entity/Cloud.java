@@ -30,7 +30,7 @@ public class Cloud extends Entity {
 	}
 	
 	@Override
-	public void renderOn(int pixels[]) {
+	public void renderOn(int destinationBuffer[]) {
 		g.drawImage(image, x, y, null);
 	}
 

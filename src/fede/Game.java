@@ -105,6 +105,7 @@ public class Game extends Canvas {
 		clouds.forEach(c -> c.renderOn(pixels));
 		dino.renderOn(pixels);
 		renderScore();
+		g.drawImage(image, 0, 0, null);
 		bufferStrategy.show();
 	}
 	
@@ -118,7 +119,9 @@ public class Game extends Canvas {
 	}
 
 	private void clearScreen() {
-		g.clearRect(0, 0, this.getWidth(), this.getHeight());
+	//	g.clearRect(0, 0, this.getWidth(), this.getHeight());
+		for (int i = 0; i < pixels.length; i++)
+			pixels[i] = backgroundColor.getRGB();
 	}
 	
 	//Updaters
