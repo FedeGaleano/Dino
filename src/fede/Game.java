@@ -26,8 +26,8 @@ import static fede.utils.FedeCollections.any;
 @SuppressWarnings("serial")
 public class Game extends Canvas {
 
-	public static final int CANVAS_HEIGHT = 200;
-	public static final int CANVAS_WIDTH = 600;
+	public static final int GAME_HEIGHT = 200;
+	public static final int GAME_WIDTH = 600;
 	// Colors
 	private static final Color foregroundColor = Color.decode("#535353");
 	private static final Color backgroundColor = Color.decode("#F7F7F7");
@@ -35,8 +35,10 @@ public class Game extends Canvas {
 	// Graphic tools
 	private Graphics g;
 	private BufferStrategy bufferStrategy;
-	private BufferedImage image = new BufferedImage(CANVAS_WIDTH, CANVAS_HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private BufferedImage image = new BufferedImage(GAME_WIDTH, GAME_HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)(image.getRaster().getDataBuffer())).getData();
+	public static int xOffset;
+	public static int yOffset;
 	private Behaviour renderer, updater;
 	private LevelListener levelListener = new LevelListener(this);
 	private GameOverListener gameOverListener = new GameOverListener(this);
@@ -57,7 +59,7 @@ public class Game extends Canvas {
 	public Game() {
 		super();
 		this.setIgnoreRepaint(true);
-		this.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
+		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setBackground(backgroundColor);
 		this.setForeground(foregroundColor);
 		this.setFocusable(true);
@@ -86,6 +88,8 @@ public class Game extends Canvas {
 		levelListener.start();
 		dino.setGraphics(g);
 		floor.setGraphics(g);
+		xOffset = (this.getWidth() - GAME_WIDTH) / 2;
+		yOffset = (this.getHeight() - GAME_HEIGHT) / 2;
 	}
 
 	public void render() {
@@ -99,13 +103,13 @@ public class Game extends Canvas {
 	// Renderers
 	private void renderLevel() {
 		this.clearScreen();
+		dino.renderOn(pixels);
+		g.drawImage(image, xOffset, yOffset, null);
 		cactuses.forEach(c -> c.renderOn(pixels));
 		passedCactuses.forEach(c -> c.renderOn(pixels));
 		floor.renderOn(pixels);
 		clouds.forEach(c -> c.renderOn(pixels));
-		dino.renderOn(pixels);
 		renderScore();
-		g.drawImage(image, 0, 0, null);
 		bufferStrategy.show();
 	}
 	
@@ -119,7 +123,7 @@ public class Game extends Canvas {
 	}
 
 	private void clearScreen() {
-	//	g.clearRect(0, 0, this.getWidth(), this.getHeight());
+		g.clearRect(0, 0, this.getWidth(), this.getHeight());
 		for (int i = 0; i < pixels.length; i++)
 			pixels[i] = backgroundColor.getRGB();
 	}

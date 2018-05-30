@@ -53,13 +53,13 @@ public class Dinosaur extends Entity {
 	@Override
 	public void renderOn(int[] destinationBuffer) {
 		
-		int initialPoint = (y - height) * Game.CANVAS_WIDTH + x;
+		int initialPoint = (y - height) * Game.GAME_WIDTH + x;
 		
 		for (int i = 0; i < this.pixels.length; i++) {
 			int yy = i / width;
 			int xx = i % width;
 			if(this.pixels[i] != 0)
-				destinationBuffer[initialPoint + (yy * Game.CANVAS_WIDTH) + xx] = this.pixels[i];
+				destinationBuffer[initialPoint + (yy * Game.GAME_WIDTH) + xx] = this.pixels[i];
 		}
 		
 	}

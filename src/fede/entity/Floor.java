@@ -4,7 +4,7 @@ import fede.Game;
 
 public class Floor extends Entity {
 	
-	public static int Y = 190;
+	public static int Y = 185;
 	private static int securityWIDTH = 100;
 	
 	public Floor() {
@@ -14,8 +14,8 @@ public class Floor extends Entity {
 	
 	@Override
 	public void renderOn(int destinationBuffer[]) {
-		g.drawLine(0, y, Game.CANVAS_WIDTH + securityWIDTH, y);
-		for(int i = x % Game.CANVAS_WIDTH; i < Game.CANVAS_WIDTH; i += 40) {
+		g.drawLine(0, y, Game.GAME_WIDTH + securityWIDTH, y);
+		for(int i = x % Game.GAME_WIDTH; i < Game.GAME_WIDTH; i += 40) {
 			renderLittleLine(i, y);
 			renderLittleLine(i + 20, y + 5);
 		}
