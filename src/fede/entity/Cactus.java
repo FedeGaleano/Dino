@@ -10,6 +10,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import fede.Game;
+import fede.utils.Bitmap;
+import fede.utils.SpriteLoader;
 
 public class Cactus extends Entity {
 	
@@ -23,18 +25,17 @@ public class Cactus extends Entity {
 	
 	private static final int y0 = Floor.Y + 10, x0 = 650;
 	
+	Bitmap cactuses[] = {SpriteLoader.cactus1, SpriteLoader.cactus2, SpriteLoader.cactus3, SpriteLoader.cactus4, SpriteLoader.cactus5, SpriteLoader.cactus6};
+	
 	public Cactus(int selectedCactus) {
+		
 		this.selectedCactus = selectedCactus;
 		
-		try {
-			image = ImageIO.read(new File("res/cactus" + selectedCactus + ".png"));
-			width = image.getWidth();
-			height = image.getHeight();
-			this.pixels = image.getRGB(0, 0, width, height, null, 0, width);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Bitmap cactus = cactuses[selectedCactus - 1];
+		
+		width = cactus.width;
+		height = cactus.height;
+		pixels = cactus.pixels;
 		
 		hitBoxes = new ArrayList<HitBox>();
 

@@ -7,6 +7,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import fede.Game;
+import fede.utils.Bitmap;
+import fede.utils.SpriteLoader;
 
 public class Cloud extends Entity {
 
@@ -19,15 +21,11 @@ public class Cloud extends Entity {
 		
 		virtual_x = x;
 		
-		try {
-			image = ImageIO.read(new File("res/cloud.png"));
-			width = image.getWidth();
-			height = image.getHeight();
-			pixels = image.getRGB(0, 0, width, height, null, 0, width);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Bitmap bitmap = SpriteLoader.cloud;
+		
+		width = bitmap.width;
+		height = bitmap.height;
+		pixels = bitmap.pixels;
 	}
 	
 	public Cloud(Graphics g, int x, int y) {

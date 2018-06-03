@@ -8,8 +8,8 @@ import javax.swing.SwingUtilities;
  *   TECHNICAL
  *   ---------
  * - In game::update, update hitboxes state instead of updating it's reference, it's too expensive
- * - Log frames per second
  * - Manage ocasional exception, at restart. java.lang.ArrayIndexOutOfBoundsException: 600 <- at Floor::setInitialState
+ * - Load all rasters at the beginning
  * 
  *   GAMEPLAY
  *   --------
@@ -21,14 +21,14 @@ import javax.swing.SwingUtilities;
  * */
 public class Engine {
 	
-	private static final double millis_per_frame = 16;//original: 15
+	private static final double millis_per_frame = 15;//original: 15
 
 	public static int count = 0;
 	public static int frames = 0;
 	
 	private static Game game;
 	private static Thread mainLoopThread;
-	private static boolean running = false;
+	private static volatile boolean running = false;
 	public static Window window;
 	
 	public static void main(String[] args) {
@@ -60,7 +60,6 @@ public class Engine {
 			framesLate += delta_time / millis_per_frame;
 			lastTime = startTime;
 			while(framesLate >= 1) {
-				if(framesLate >= 2) System.out.println("damn nigga: " + framesLate);
 				game.update();
 				--framesLate;
 				shouldRender = true;
