@@ -85,8 +85,6 @@ public class Game extends Canvas {
 		bufferStrategy = this.getBufferStrategy();
 		g = bufferStrategy.getDrawGraphics();
 		levelListener.start();
-		dino.setGraphics(g);
-		floor.setGraphics(g);
 		xOffset = (this.getWidth() - GAME_WIDTH) / 2;
 		yOffset = (this.getHeight() - GAME_HEIGHT) / 2;
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());
@@ -138,7 +136,7 @@ public class Game extends Canvas {
 		}
 		
 		if(distanceToLastCloud == separationBetweenLastAndNextCloud) {
-			clouds.add(new Cloud(g, 700, random.between(0, 100)));
+			clouds.add(new Cloud(700, random.between(0, 100)));
 			separationBetweenLastAndNextCloud = random.between(87, 262);
 			distanceToLastCloud = 0;
 		}
@@ -184,7 +182,7 @@ public class Game extends Canvas {
 	}
 	
 	private Cactus randomCactus() {
-		return new Cactus(g, random.between(Cactus.CACTUS_1, Cactus.CACTUS_6));
+		return new Cactus(random.between(Cactus.CACTUS_1, Cactus.CACTUS_6));
 	}
 	
 	private void updateGameOverScreen() {

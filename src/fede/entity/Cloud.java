@@ -1,11 +1,5 @@
 package fede.entity;
 
-import java.awt.Graphics;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import fede.Game;
 import fede.utils.Bitmap;
 import fede.utils.SpriteLoader;
@@ -26,11 +20,6 @@ public class Cloud extends Entity {
 		width = bitmap.width;
 		height = bitmap.height;
 		pixels = bitmap.pixels;
-	}
-	
-	public Cloud(Graphics g, int x, int y) {
-		this(x, y);
-		this.setGraphics(g);
 	}
 	
 	@Override

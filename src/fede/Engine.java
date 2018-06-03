@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
  * - In game::update, update hitboxes state instead of updating it's reference, it's too expensive
  * - Manage ocasional exception, at restart. java.lang.ArrayIndexOutOfBoundsException: 600 <- at Floor::setInitialState
  * - Load all rasters at the beginning
+ * - Use sprite sheets
  * 
  *   GAMEPLAY
  *   --------

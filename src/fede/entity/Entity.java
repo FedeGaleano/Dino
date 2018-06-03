@@ -1,25 +1,17 @@
 package fede.entity;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
 
-import fede.Game;
-
 import static fede.utils.FedeCollections.any;
 
 public abstract class Entity {
-	protected Graphics g;
 	protected BufferedImage image;
 	protected int pixels[], width, height;
 	protected int x, y;
-	
-	public void setGraphics(Graphics g) {
-		this.g = g;
-	}
 	
 	public Point getCoordinates() {
 		return new Point(x, y);

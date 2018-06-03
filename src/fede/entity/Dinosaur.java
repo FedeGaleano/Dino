@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import fede.Engine;
 import fede.Game;
 
 public class Dinosaur extends Entity {
