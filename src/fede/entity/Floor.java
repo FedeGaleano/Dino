@@ -36,11 +36,11 @@ public class Floor extends Entity {
 		for(int i = 0; i < Game.GAME_WIDTH; ++i)
 			upperLines[i] = lowerLines[i] = 0;
 		
-		for (int i = 0; i < Game.GAME_WIDTH; i += random.between(longerLineLength + 1, longerLineLength + 70))
+		for (int i = 0; i < Game.GAME_WIDTH - longerLineLength; i += random.between(longerLineLength + 1, longerLineLength + 70))
 			for (int j = i; j < i + random.between(1, longerLineLength); j++)
 				upperLines[j] = color;
 		
-		for (int i = 0; i < Game.GAME_WIDTH; i += random.between(longerLineLength + 1, longerLineLength + 70))
+		for (int i = 0; i < Game.GAME_WIDTH - longerLineLength; i += random.between(longerLineLength + 1, longerLineLength + 70))
 			for (int j = i; j < i + random.between(1, longerLineLength); j++)
 				lowerLines[j] = color;
 	}

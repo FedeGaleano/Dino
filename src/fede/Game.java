@@ -76,6 +76,10 @@ public class Game extends Canvas {
 		cactuses = new ArrayList<Cactus>();
 		passedCactuses = new ArrayList<Cactus>();
 		clouds = new ArrayList<Cloud>();
+		clouds.add(new Cloud(100, 100));
+		clouds.add(new Cloud(150, 10));
+		clouds.add(new Cloud(350, 60));
+		clouds.add(new Cloud(550, 20));
 		renderer = this::renderLevel;
 		updater = this::updateLevel;
 	}
