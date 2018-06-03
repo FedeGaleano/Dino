@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
  *   TECHNICAL
  *   ---------
  * - In game::update, update hitboxes state instead of updating it's reference, it's too expensive
- * - Load all rasters at the beginning
+ * - Load dino raster from SpriteLoader
  * - Use sprite sheets
  * 
  *   GAMEPLAY
