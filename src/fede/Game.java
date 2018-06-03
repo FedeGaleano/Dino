@@ -21,9 +21,6 @@ import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
 import fede.utils.Random;
 
-import static fede.utils.FedeCollections.filter;
-import static fede.utils.FedeCollections.any;
-
 @SuppressWarnings("serial")
 public class Game extends Canvas {
 
@@ -159,23 +156,31 @@ public class Game extends Canvas {
 		clouds.forEach(Cloud::update);
 		cactuses.forEach(Cactus::update);
 		passedCactuses.forEach(Cactus::update);
-		filter(passedCactuses, this::cactusIsInsideBounds);
-		filter(clouds, this::cloudIsInsideBounds);
-		if(any(cactuses, cactus -> cactus.collidesWith(dino))) {
-			dino.die();
-			gameOver = true;
-			return;
+		
+		if(passedCactuses.size() > 0) {
+			Cactus frontPassedCactus = passedCactuses.get(0);
+			if(!cactusIsInsideBounds(frontPassedCactus)) passedCactuses.remove(frontPassedCactus);
 		}
-		cactuses.forEach(cactus -> {
-			if(cactus.getDefaultHitBox().x0 + cactus.getDefaultHitBox().delta_x < dino.getDefaultHitBox().x0) /*If dino passed the cactus*/{
+		
+		if(clouds.size() > 0) {
+			Cloud frontCloud = clouds.get(0);
+			if(!cloudIsInsideBounds(frontCloud)) clouds.remove(frontCloud);
+		}
+
+		if(cactuses.size() > 0) {
+			Cactus frontCactus = cactuses.get(0);
+			if(frontCactus.collidesWith(dino)) {
+				dino.die();
+				gameOver = true;
+				return;
+			}
+			
+			if(frontCactus.getDefaultHitBox().x0 + frontCactus.getDefaultHitBox().delta_x < dino.getDefaultHitBox().x0) /*If dino passed the cactus*/{
 				score++;
-				passedCactuses.add(cactus);
+				passedCactuses.add(frontCactus);
+				cactuses.remove(frontCactus);
 			};
-		});
-	//	filter(cactuses, cactus -> !(passedCactuses.contains(cactus)));
-		passedCactuses.forEach(passedCactus -> {
-			if(cactuses.contains(passedCactus)) cactuses.remove(passedCactus);
-		});
+		}
 	}
 	
 	private Cactus randomCactus() {
