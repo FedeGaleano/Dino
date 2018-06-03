@@ -107,7 +107,7 @@ public class Game extends Canvas {
 		cactuses.forEach(c -> c.renderOn(pixels));
 		passedCactuses.forEach(c -> c.renderOn(pixels));
 		dino.renderOn(pixels);
-		renderScore();
+	//	renderScore();
 		floor.renderOn(pixels);
 		g.drawImage(image, xOffset, yOffset, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 		bufferStrategy.show();

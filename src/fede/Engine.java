@@ -9,19 +9,22 @@ import javax.swing.SwingUtilities;
  *   ---------
  * - In game::update, update hitboxes state instead of updating it's reference, it's too expensive
  * - Log frames per second
+ * - Manage ocasional exception, at restart. java.lang.ArrayIndexOutOfBoundsException: 600 <- at Floor::setInitialState
  * 
  *   GAMEPLAY
  *   --------
  * - Make dino be able to duck down
  * - Make dino be able to fire
- * - Make level system
+ * - Let clouds and cactuses be able to spawn at any position
+ * - Render score and highscore
  * 
  * */
 public class Engine {
 	
-	private static final double millis_per_frame = 15;
+	private static final double millis_per_frame = 16;//original: 15
 
 	public static int count = 0;
+	public static int frames = 0;
 	
 	private static Game game;
 	private static Thread mainLoopThread;
@@ -44,15 +47,20 @@ public class Engine {
 		game.activate();
 		running = true;
 		
+		long millis = 0;
+		
 		long lastTime = now();
 		boolean shouldRender = true;
 		double framesLate = 0;
 		
 		while(running) {
 			long startTime = now();
-			framesLate += (startTime - lastTime) / millis_per_frame;
+			long delta_time = startTime - lastTime;
+			millis += delta_time; 
+			framesLate += delta_time / millis_per_frame;
 			lastTime = startTime;
 			while(framesLate >= 1) {
+				if(framesLate >= 2) System.out.println("damn nigga: " + framesLate);
 				game.update();
 				--framesLate;
 				shouldRender = true;
@@ -60,6 +68,12 @@ public class Engine {
 			if(shouldRender) {
 				game.render();
 				shouldRender = false;
+				frames++;
+			}
+			if(millis >= 1000) {
+				window.appendText("FPS: " + frames);
+				millis -= 1000;
+				frames = 0;
 			}
 			sleep(2);
 			count++;
