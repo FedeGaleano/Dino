@@ -15,17 +15,17 @@ import fede.Game;
 
 public class Dinosaur extends Entity {
 	private int sprite[][];
-	private int pixels[], width, height;
 	private int imagePointer;
 	private static final int running_state_1 = 0/*, running_state_2 = 1*/, stand_or_jump_state = 2, lost_state = 3;
 	
 	// Character
 	private static final int y0 = Floor.Y + 10, x0 = 100;
-	private static final int v0 = 10;
-	private static final double grav = .6;
+	private static final int v0 = 10;//original: 10
+	private static final double grav = .55;//original: 6
 	private int t;
 	private Behaviour behaviour;
-	private List<HitBox> hitBoxes; 
+	private List<HitBox> hitBoxes;
+	private int frames = 0;
 	
 	public Dinosaur() {
 		super();
@@ -68,6 +68,7 @@ public class Dinosaur extends Entity {
 	public void update() {
 		behaviour.behave();
 		this.pixels = sprite[imagePointer];
+		++frames;
 	}
 
 	private BufferedImage takeSubimage(int nthSubimage) {
@@ -95,7 +96,7 @@ public class Dinosaur extends Entity {
 	
 	/* Possible Behaviours */	
 	private void behaveAsRunning() {
-		imagePointer = (Engine.count / 6) % 2;
+		imagePointer = (frames / 6) % 2;
 	}
 	
 	private void behaveAsJumping() {

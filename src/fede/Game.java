@@ -19,6 +19,7 @@ import fede.entity.Dinosaur;
 import fede.entity.Floor;
 import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
+import fede.utils.Random;
 
 import static fede.utils.FedeCollections.filter;
 import static fede.utils.FedeCollections.any;
@@ -29,8 +30,9 @@ public class Game extends Canvas {
 	public static final int GAME_HEIGHT = 200;
 	public static final int GAME_WIDTH = 600;
 	// Colors
-	private static final Color foregroundColor = Color.decode("#535353");
-	private static final Color backgroundColor = Color.decode("#F7F7F7");
+	public static final Color foregroundColor = Color.decode("#535353");
+	public static final Color backgroundColor = Color.decode("#F7F7F7");
+	public static final Color canvas_Color = Color.DARK_GRAY;
 
 	// Graphic tools
 	private Graphics g;
@@ -53,14 +55,14 @@ public class Game extends Canvas {
 	private BufferedImage gameOverImage;
 	public Window window;
 	private int score;
-	private int distanceToLastCactus = 0, separationBetweenLastAndNextCactus = 70;
-	private int distanceToLastCloud = 0, separationBetweenLastAndNextCloud = 350;
+	private float distanceToLastCactus = 0, separationBetweenLastAndNextCactus = 200;
+	private float distanceToLastCloud = 0, separationBetweenLastAndNextCloud = 10;
 	
 	public Game() {
 		super();
 		this.setIgnoreRepaint(true);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
-		this.setBackground(backgroundColor);
+		this.setBackground(canvas_Color);
 		this.setForeground(foregroundColor);
 		this.setFocusable(true);
 		this.requestFocus();
@@ -90,6 +92,7 @@ public class Game extends Canvas {
 		floor.setGraphics(g);
 		xOffset = (this.getWidth() - GAME_WIDTH) / 2;
 		yOffset = (this.getHeight() - GAME_HEIGHT) / 2;
+		g.clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
 	public void render() {
@@ -103,13 +106,13 @@ public class Game extends Canvas {
 	// Renderers
 	private void renderLevel() {
 		this.clearScreen();
-		dino.renderOn(pixels);
-		g.drawImage(image, xOffset, yOffset, null);
+		clouds.forEach(c -> c.renderOn(pixels));
 		cactuses.forEach(c -> c.renderOn(pixels));
 		passedCactuses.forEach(c -> c.renderOn(pixels));
-		floor.renderOn(pixels);
-		clouds.forEach(c -> c.renderOn(pixels));
+		dino.renderOn(pixels);
 		renderScore();
+		floor.renderOn(pixels);
+		g.drawImage(image, xOffset, yOffset, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 		bufferStrategy.show();
 	}
 	
@@ -123,7 +126,6 @@ public class Game extends Canvas {
 	}
 
 	private void clearScreen() {
-		g.clearRect(0, 0, this.getWidth(), this.getHeight());
 		for (int i = 0; i < pixels.length; i++)
 			pixels[i] = backgroundColor.getRGB();
 	}
@@ -140,17 +142,17 @@ public class Game extends Canvas {
 		
 		if(distanceToLastCloud == separationBetweenLastAndNextCloud) {
 			clouds.add(new Cloud(g, 700, random.between(0, 100)));
-			separationBetweenLastAndNextCloud = random.between(350, 1050);
+			separationBetweenLastAndNextCloud = random.between(87, 262);
 			distanceToLastCloud = 0;
 		}
-		++distanceToLastCloud;
+		distanceToLastCloud += Cloud.velocity;
 		
-		if(distanceToLastCactus == separationBetweenLastAndNextCactus) {
+		if(distanceToLastCactus >= separationBetweenLastAndNextCactus) {
 			cactuses.add(randomCactus());
-			separationBetweenLastAndNextCactus = random.between(40, 120);
+			separationBetweenLastAndNextCactus = random.between(200, 600);
 			distanceToLastCactus = 0;
 		}
-		++distanceToLastCactus;
+		distanceToLastCactus += Cactus.velocity;
 
 		dino.update();
 		floor.update();
@@ -177,7 +179,7 @@ public class Game extends Canvas {
 	}
 	
 	private Cactus randomCactus() {
-		return new Cactus(g, random.between(1, 6));
+		return new Cactus(g, random.between(Cactus.CACTUS_1, Cactus.CACTUS_6));
 	}
 	
 	private void updateGameOverScreen() {
@@ -203,6 +205,7 @@ public class Game extends Canvas {
 	
 	public void restart() {
 		dino.setInitialState();
+		floor.setInitialState();
 		cactuses.clear();
 		passedCactuses.clear();
 		Engine.count = -1;
@@ -220,10 +223,4 @@ public class Game extends Canvas {
 
 interface Behaviour {
 	public abstract void behave();
-}
-
-class Random {
-	public int between(int min, int max) {
-		return (int) Math.round(Math.random() * (max - min) + min);
-	}
 }

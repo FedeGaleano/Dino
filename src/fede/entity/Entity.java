@@ -4,13 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
 import static fede.utils.FedeCollections.any;
 
 public abstract class Entity {
 	protected Graphics g;
-	protected Image image;
+	protected BufferedImage image;
+	protected int pixels[], width, height;
 	protected int x, y;
 	
 	public void setGraphics(Graphics g) {
