@@ -44,7 +44,7 @@ public class Engine {
 	}
 	
 	private static void mainLoop() {
-		game.activate();
+		game.prepareCanvas();
 		running = true;
 		
 		long millis = 0;

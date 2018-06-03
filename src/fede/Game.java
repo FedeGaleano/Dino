@@ -84,7 +84,7 @@ public class Game extends Canvas {
 		updater = this::updateLevel;
 	}
 
-	public void activate() {
+	public void prepareCanvas() {
 		this.createBufferStrategy(2);
 		bufferStrategy = this.getBufferStrategy();
 		g = bufferStrategy.getDrawGraphics();
