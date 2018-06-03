@@ -2,11 +2,13 @@ package fede.entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
+
+import fede.Game;
+
 import static fede.utils.FedeCollections.any;
 
 public abstract class Entity {
@@ -34,19 +36,16 @@ public abstract class Entity {
 	public abstract void renderOn(int destinationBuffer[]);
 	public abstract void update();
 	
-	public void renderDefaultHitBox() {
-		this.renderHitBox(this.getDefaultHitBox());
+	public void renderDefaultHitBox(int buffer[], int scansize) {
+		this.renderHitBox(this.getDefaultHitBox(), buffer, scansize);
 	}
 	
-	private void renderHitBox(HitBox hitBox) {
-		g.drawRect(hitBox.x0, hitBox.y0, hitBox.delta_x, hitBox.delta_y);
+	private void renderHitBox(HitBox hitBox, int buffer[], int scansize) {
+		renderRectangle(hitBox.x0, hitBox.y0, hitBox.delta_x, hitBox.delta_y, Color.RED.getRGB(), buffer, scansize);
 	}
 	
-	public void renderHitBoxes() {
-		Color defaultColor = g.getColor();
-		g.setColor(Color.RED);
-		this.getHitBoxes().forEach(this::renderHitBox);
-		g.setColor(defaultColor);
+	public void renderHitBoxes(int buffer[], int scansize) {
+		this.getHitBoxes().forEach(hitbox -> this.renderHitBox(hitbox, buffer, scansize));
 	}
 	
 	public boolean collidesWith(Entity another) {
@@ -54,4 +53,14 @@ public abstract class Entity {
 			any(another.getHitBoxes(), foreignHitbox -> hitBox.collidesWith(foreignHitbox))
 		);
 	}
+	
+	protected void renderRectangle(int x0, int y0, int delta_x, int delta_y, int color, int buffer[], int scanSize) {
+		int initialPoint = y0 * scanSize + x0;
+		for(int i = initialPoint; i < initialPoint + delta_x; ++i) {
+			buffer[i] = buffer[delta_y * scanSize + i] = color;
+		}
+		for(int i = 1; i < delta_y; ++i) {
+			buffer[initialPoint + i * scanSize] = buffer[initialPoint + i * scanSize + delta_x] = color;
+		}
+	}	
 }

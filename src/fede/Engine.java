@@ -29,17 +29,6 @@ public class Engine {
 		game.activate();
 		running = true;
 		
-	/*	while(running) {
-			long startTime = now();
-			game.update();
-			game.render();
-			long processingTime = now() - startTime;
-			sleep((long)millis_per_frame - processingTime);
-		//	System.out.println("processing time: " + processingTime + " and slept: " + (millis_per_frame - processingTime));
-			if(processingTime > millis_per_frame) System.out.println("DAMN " + processingTime);
-			count++;
-		} */
-		
 		long lastTime = now();
 		boolean shouldRender = true;
 		double framesLate = 0;
@@ -49,7 +38,6 @@ public class Engine {
 			framesLate += (startTime - lastTime) / millis_per_frame;
 			lastTime = startTime;
 			while(framesLate >= 1) {
-				if(framesLate >= 2) System.out.println("damn nigga: " + framesLate + "\n");
 				game.update();
 				--framesLate;
 				shouldRender = true;
@@ -58,8 +46,6 @@ public class Engine {
 				game.render();
 				shouldRender = false;
 			}
-//			long processingTime = now() - startTime;
-//			sleep(millis_per_frame - processingTime);
 			sleep(2);
 			count++;
 		}
