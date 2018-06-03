@@ -1,7 +1,22 @@
 package fede;
 
 import javax.swing.SwingUtilities;
-
+/*
+ * TODO List:
+ * ----------
+ * 
+ *   TECHNICAL
+ *   ---------
+ * - In game::update, update hitboxes state instead of updating it's reference, it's too expensive
+ * - Log frames per second
+ * 
+ *   GAMEPLAY
+ *   --------
+ * - Make dino be able to duck down
+ * - Make dino be able to fire
+ * - Make level system
+ * 
+ * */
 public class Engine {
 	
 	private static final double millis_per_frame = 15;
