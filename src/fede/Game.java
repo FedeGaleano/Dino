@@ -234,6 +234,14 @@ public class Game extends Canvas {
 		gameOverListener.stop();
 		levelListener.start();
 	}
+	
+	public void makeDinosaurDuckDown() {
+		dino.duck();
+	}
+	
+	public void makeDinosaurStand() {
+		dino.stand();
+	}
 }
 
 interface Behaviour {

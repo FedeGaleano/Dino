@@ -25,6 +25,7 @@ public class Dinosaur extends Entity {
 	private Behaviour behaviour;
 	private List<HitBox> hitBoxes;
 	private int frames = 0;
+	private boolean ducked = false;
 	
 	public Dinosaur() {
 		super();
@@ -94,11 +95,15 @@ public class Dinosaur extends Entity {
 	
 	/* Possible Behaviours */	
 	private void behaveAsRunning() {
-		imagePointer = (frames / 6) % 2 + (ducked() ? 4 : 0);
+		imagePointer = (frames / 6) % 2 + (ducked ? 4 : 0);
 	}
 	
-	private boolean ducked() {
-		return false;
+	public void duck() {
+		ducked = true;
+	}
+	
+	public void stand() {
+		ducked = false;
 	}
 	
 	private void behaveAsJumping() {
