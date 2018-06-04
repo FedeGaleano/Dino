@@ -28,9 +28,9 @@ public class Dinosaur extends Entity {
 	
 	public Dinosaur() {
 		super();
-		sprite = new int[4][];
+		sprite = new int[6][];
 
-		width = 40;
+		width = 55;
 		height = 42;
 		
 		for (int i = 0; i < sprite.length; i++)
@@ -94,7 +94,11 @@ public class Dinosaur extends Entity {
 	
 	/* Possible Behaviours */	
 	private void behaveAsRunning() {
-		imagePointer = (frames / 6) % 2;
+		imagePointer = (frames / 6) % 2 + (ducked() ? 4 : 0);
+	}
+	
+	private boolean ducked() {
+		return false;
 	}
 	
 	private void behaveAsJumping() {
