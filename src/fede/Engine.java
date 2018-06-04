@@ -18,6 +18,10 @@ import javax.swing.SwingUtilities;
  * - Let clouds and cactuses be able to spawn at any position
  * - Render score and highscore
  * 
+ *   BUGS
+ *   ----
+ * - Ground and cactuses start offsetting velocities when accelerating level (I strongly think it has to do with the floating point values rounding)
+ * 
  * */
 public class Engine {
 	

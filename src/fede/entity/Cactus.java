@@ -17,7 +17,7 @@ public class Cactus extends Entity {
 	
 	private List<HitBox> hitBoxes;
 	
-	private static final int y0 = Floor.Y + 10, x0 = 650;
+	private static final int y0 = Ground.Y + 10, x0 = 650;
 	
 	Bitmap cactuses[] = {SpriteLoader.cactus1, SpriteLoader.cactus2, SpriteLoader.cactus3, SpriteLoader.cactus4, SpriteLoader.cactus5, SpriteLoader.cactus6};
 	

@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import fede.entity.Cactus;
 import fede.entity.Cloud;
 import fede.entity.Dinosaur;
-import fede.entity.Floor;
+import fede.entity.Ground;
 import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
 import fede.utils.Random;
@@ -47,7 +47,7 @@ public class Game extends Canvas {
 
 	// Sprites	
 	private Dinosaur dino;
-	private Floor floor = new Floor();
+	private Ground ground = new Ground();
 	private List<Cloud> clouds;
 	private List<Cactus> cactuses, passedCactuses;
 	private boolean gameOver = false;
@@ -112,7 +112,7 @@ public class Game extends Canvas {
 		passedCactuses.forEach(c -> c.renderOn(pixels));
 		dino.renderOn(pixels);
 	//	renderScore();
-		floor.renderOn(pixels);
+		ground.renderOn(pixels);
 		g.drawImage(image, xOffset, yOffset, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 		bufferStrategy.show();
 	}
@@ -156,7 +156,7 @@ public class Game extends Canvas {
 		distanceToLastCactus += Cactus.velocity;
 
 		dino.update();
-		floor.update();
+		ground.update();
 		clouds.forEach(Cloud::update);
 		cactuses.forEach(Cactus::update);
 		passedCactuses.forEach(Cactus::update);
@@ -188,7 +188,7 @@ public class Game extends Canvas {
 		
 		if(Engine.count % 1000 == 0) {
 			Cactus.velocity+=.5f;
-			Floor.velocity+=.5f;
+			Ground.velocity+=.5f;
 		}
 	}
 	
@@ -219,7 +219,7 @@ public class Game extends Canvas {
 	
 	public void restart() {
 		dino.setInitialState();
-		floor.setInitialState();
+		ground.setInitialState();
 		cactuses.clear();
 		passedCactuses.clear();
 		Cactus.velocity = initialVelocity;

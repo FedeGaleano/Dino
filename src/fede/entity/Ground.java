@@ -3,7 +3,7 @@ package fede.entity;
 import fede.Game;
 import fede.utils.Random;
 
-public class Floor extends Entity {
+public class Ground extends Entity {
 	
 	public static int Y = 180;
 	private Random random = new Random();
@@ -19,7 +19,7 @@ public class Floor extends Entity {
 	private int distanceToLastUpperLine = 0, separationBetweenLastAndNextUpperLine = (int)(random.between(1, 5) * velocity);
 	private int distanceToLastLowerLine = 0, separationBetweenLastAndNextLowerLine = (int)(random.between(1, 5) * velocity);
 	
-	public Floor() {
+	public Ground() {
 		y = Y;
 		x = 0;
 

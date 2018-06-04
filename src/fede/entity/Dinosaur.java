@@ -18,7 +18,7 @@ public class Dinosaur extends Entity {
 	private static final int running_state_1 = 0/*, running_state_2 = 1*/, stand_or_jump_state = 2, lost_state = 3;
 	
 	// Character
-	private static final int y0 = Floor.Y + 10, x0 = 100;
+	private static final int y0 = Ground.Y + 10, x0 = 100;
 	private static final int v0 = 10;//original: 10
 	private static final double grav = .55;//original: 6
 	private int t;
