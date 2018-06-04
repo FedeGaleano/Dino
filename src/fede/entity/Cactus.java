@@ -9,7 +9,7 @@ import fede.utils.SpriteLoader;
 
 public class Cactus extends Entity {
 	
-	public static final int velocity = 5;//original: 5
+	public static float velocity = Game.initialVelocity;
 	public static final byte CACTUS_1 = 1, CACTUS_2 = 2, CACTUS_3 = 3, CACTUS_4 = 4, CACTUS_5 = 5, CACTUS_6 = 6;
 	private int selectedCactus;
 	private int width;

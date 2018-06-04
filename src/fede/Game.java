@@ -30,6 +30,8 @@ public class Game extends Canvas {
 	public static final Color foregroundColor = Color.decode("#535353");
 	public static final Color backgroundColor = Color.decode("#F7F7F7");
 	public static final Color canvas_Color = Color.DARK_GRAY;
+	
+	public static final int initialVelocity = 3;//original: 5 
 
 	// Graphic tools
 	private Graphics g;
@@ -183,6 +185,11 @@ public class Game extends Canvas {
 				cactuses.remove(frontCactus);
 			};
 		}
+		
+		if(Engine.count % 1000 == 0) {
+			Cactus.velocity+=.5f;
+			Floor.velocity+=.5f;
+		}
 	}
 	
 	private Cactus randomCactus() {
@@ -215,6 +222,7 @@ public class Game extends Canvas {
 		floor.setInitialState();
 		cactuses.clear();
 		passedCactuses.clear();
+		Cactus.velocity = initialVelocity;
 		Engine.count = -1;
 		score = 0;
 		distanceToLastCactus = 0;

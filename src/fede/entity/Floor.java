@@ -10,14 +10,14 @@ public class Floor extends Entity {
 	private int upperLines[] = new int[Game.GAME_WIDTH], lowerLines[] = new int[Game.GAME_WIDTH];
 	private final static int longerLineLength = 4;
 	private int color = Game.foregroundColor.getRGB();
-	private static int velocity = Cactus.velocity;
+	public static float velocity = Game.initialVelocity;
 
 	private int surface_y;
 	private int upper_y;
 	private int lower_y;
 	
-	private int distanceToLastUpperLine = 0, separationBetweenLastAndNextUpperLine = random.between(1, 5) * velocity;
-	private int distanceToLastLowerLine = 0, separationBetweenLastAndNextLowerLine = random.between(1, 5) * velocity;
+	private int distanceToLastUpperLine = 0, separationBetweenLastAndNextUpperLine = (int)(random.between(1, 5) * velocity);
+	private int distanceToLastLowerLine = 0, separationBetweenLastAndNextLowerLine = (int)(random.between(1, 5) * velocity);
 	
 	public Floor() {
 		y = Y;
@@ -43,6 +43,8 @@ public class Floor extends Entity {
 		for (int i = 0; i < Game.GAME_WIDTH - longerLineLength; i += random.between(longerLineLength + 1, longerLineLength + 70))
 			for (int j = i; j < i + random.between(1, longerLineLength); j++)
 				lowerLines[j] = color;
+		
+		velocity = Game.initialVelocity;	
 	}
 	
 	@Override
@@ -84,7 +86,7 @@ public class Floor extends Entity {
 	
 	private void shiftBufferLeft(int buff[]) {
 		for (int i = 0; i < buff.length - velocity; i++)
-			buff[i] = buff[i + velocity];
+			buff[i] = buff[i + (int)velocity];
 		for(int i = buff.length - 1; i > buff.length - 1 - velocity; --i)
 			buff[i] = 0;
 	}
