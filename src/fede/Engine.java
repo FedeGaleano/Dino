@@ -13,7 +13,8 @@ import javax.swing.SwingUtilities;
  * 
  *   GAMEPLAY
  *   --------
- * - Make dino be able to duck down
+ * - MAXIMUM PRIORITY: Establish min and max separation between cactuses such that dino can always pass every cactus in every level speed
+ * - Make dino be able to accelerate its fall on pressing down arrow key while being in the air
  * - Make dino be able to fire
  * - Let clouds and cactuses be able to spawn at any position
  * - Render score and highscore
