@@ -53,32 +53,6 @@ public class Ground extends Entity {
 	
 	@Override
 	public void renderOn(int destinationBuffer[]) {
-		int shift = - x + previous_x;
-		
-		int upperOffset = distanceToLastUpperLine - separationBetweenLastAndNextUpperLine;
-		int lowerOffset = distanceToLastLowerLine - separationBetweenLastAndNextLowerLine;
-		
-		if(upperOffset >= 0) {
-			for(int i = (upperLines.length - 1)/*last array position*/ - upperOffset; i > upperLines.length - 1 - upperOffset - random.between(1, longerLineLength); --i)
-				upperLines[i] = color;
-			
-			separationBetweenLastAndNextUpperLine = random.between(1, 70);
-			distanceToLastUpperLine = 0;
-		}
-		else if(lowerOffset >= 0) {/*else: prevent lower and upper lines to render in the same iteration for them not to be very close to each other*/
-			for(int i = lowerLines.length - 1 - lowerOffset; i > lowerLines.length - 1 - lowerOffset - random.between(1, longerLineLength); --i)
-				lowerLines[i] = color;
-			
-			separationBetweenLastAndNextLowerLine = random.between(1, 70);
-			distanceToLastLowerLine = 0;
-		}
-		distanceToLastUpperLine += shift;
-		distanceToLastLowerLine += shift;
-		
-		if(shift > 0) {
-			shiftBufferLeft(upperLines, shift);
-			shiftBufferLeft(lowerLines, shift);
-		}
 		
 		for(int i = 0; i < Game.GAME_WIDTH; ++i)
 			destinationBuffer[surface_y + i] = color;
@@ -105,6 +79,34 @@ public class Ground extends Entity {
 	public void update() {
 		virtual_x -= velocity;
 		x = (int)virtual_x;
+		
+
+		int shift = - x + previous_x;
+		
+		int upperOffset = distanceToLastUpperLine - separationBetweenLastAndNextUpperLine;
+		int lowerOffset = distanceToLastLowerLine - separationBetweenLastAndNextLowerLine;
+		
+		if(upperOffset >= 0) {
+			for(int i = (upperLines.length - 1)/*last array position*/ - upperOffset; i > upperLines.length - 1 - upperOffset - random.between(1, longerLineLength); --i)
+				upperLines[i] = color;
+			
+			separationBetweenLastAndNextUpperLine = random.between(1, 70);
+			distanceToLastUpperLine = 0;
+		}
+		else if(lowerOffset >= 0) {/*else: prevent lower and upper lines to render in the same iteration for them not to be very close to each other*/
+			for(int i = lowerLines.length - 1 - lowerOffset; i > lowerLines.length - 1 - lowerOffset - random.between(1, longerLineLength); --i)
+				lowerLines[i] = color;
+			
+			separationBetweenLastAndNextLowerLine = random.between(1, 70);
+			distanceToLastLowerLine = 0;
+		}
+		distanceToLastUpperLine += shift;
+		distanceToLastLowerLine += shift;
+		
+		if(shift > 0) {
+			shiftBufferLeft(upperLines, shift);
+			shiftBufferLeft(lowerLines, shift);
+		}
 	}
 	
 }
