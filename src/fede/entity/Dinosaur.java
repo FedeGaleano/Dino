@@ -20,7 +20,7 @@ public class Dinosaur extends Entity {
 	// Character
 	private static final int y0 = Ground.Y + 10, x0 = 100;
 	private static final int v0 = 10;//original: 10
-	private static final double grav = .55;//original: 6
+	private static final double grav = .5;//original: 6
 	private int t;
 	private Behaviour behaviour;
 	private List<HitBox> hitBoxes;

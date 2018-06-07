@@ -31,7 +31,7 @@ public class Game extends Canvas {
 	public static final Color backgroundColor = Color.decode("#F7F7F7");
 	public static final Color canvas_Color = Color.DARK_GRAY;
 	
-	public static final int initialVelocity = 3;//original: 5 
+	public static final float initialVelocity = 3.5f;//original: 5 
 
 	// Graphic tools
 	private Graphics g;
@@ -150,7 +150,7 @@ public class Game extends Canvas {
 		
 		if(distanceToLastCactus >= separationBetweenLastAndNextCactus) {
 			cactuses.add(randomCactus());
-			separationBetweenLastAndNextCactus = random.between(200, 600);
+			separationBetweenLastAndNextCactus = random.between(250, 600);
 			distanceToLastCactus = 0;
 		}
 		distanceToLastCactus += Cactus.velocity;
@@ -186,9 +186,10 @@ public class Game extends Canvas {
 			};
 		}
 		
-		if(Engine.count % 1000 == 0) {
+		if(Engine.count > 0 && Engine.count % 1000 == 0) {
 			Cactus.velocity+=.5f;
 			Ground.velocity+=.5f;
+			System.out.println("\nfaster: " + Cactus.velocity + "\n");
 		}
 	}
 	
@@ -223,7 +224,7 @@ public class Game extends Canvas {
 		cactuses.clear();
 		passedCactuses.clear();
 		Cactus.velocity = initialVelocity;
-		Engine.count = -1;
+		Engine.count = 0;
 		score = 0;
 		distanceToLastCactus = 0;
 		updater = this::updateLevel;

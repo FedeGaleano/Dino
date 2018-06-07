@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
  * 
  *   TECHNICAL
  *   ---------
+ * - Create hitboxes for ducked state
  * - In game::update, update hitboxes state instead of updating it's reference, it's too expensive
  * - Load dino raster from SpriteLoader
  * - Use sprite sheets
@@ -68,6 +69,7 @@ public class Engine {
 				game.update();
 				--framesLate;
 				shouldRender = true;
+				count++;
 			}
 			if(shouldRender) {
 				game.render();
@@ -80,7 +82,6 @@ public class Engine {
 				frames = 0;
 			}
 			sleep(2);
-			count++;
 		}
 	}
 	

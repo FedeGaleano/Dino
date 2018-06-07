@@ -8,7 +8,7 @@ public class Ground extends Entity {
 	public static int Y = 180;
 	private Random random = new Random();
 	private int upperLines[] = new int[Game.GAME_WIDTH], lowerLines[] = new int[Game.GAME_WIDTH];
-	private final static int longerLineLength = 4;
+	private final static int longerLineLength = 6;
 	private int color = Game.foregroundColor.getRGB();
 	public static float velocity = Game.initialVelocity;
 	private int previous_x;
