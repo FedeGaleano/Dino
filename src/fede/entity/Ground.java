@@ -54,8 +54,6 @@ public class Ground extends Entity {
 	@Override
 	public void renderOn(int destinationBuffer[]) {
 		int shift = - x + previous_x;
-		System.out.println("x: " + x + " , prev_x: " + previous_x);
-		System.out.println("shift: " + shift);
 		
 		int upperOffset = distanceToLastUpperLine - separationBetweenLastAndNextUpperLine;
 		int lowerOffset = distanceToLastLowerLine - separationBetweenLastAndNextLowerLine;
