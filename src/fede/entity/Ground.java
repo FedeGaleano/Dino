@@ -11,6 +11,8 @@ public class Ground extends Entity {
 	private final static int longerLineLength = 4;
 	private int color = Game.foregroundColor.getRGB();
 	public static float velocity = Game.initialVelocity;
+	private int previous_x;
+	private float virtual_x;
 
 	private int surface_y;
 	private int upper_y;
@@ -22,6 +24,8 @@ public class Ground extends Entity {
 	public Ground() {
 		y = Y;
 		x = 0;
+		previous_x = x;
+		virtual_x = x;
 
 		surface_y = Game.GAME_WIDTH * y;
 		upper_y = Game.GAME_WIDTH * (y + 7);
@@ -49,6 +53,10 @@ public class Ground extends Entity {
 	
 	@Override
 	public void renderOn(int destinationBuffer[]) {
+		int shift = - x + previous_x;
+		System.out.println("x: " + x + " , prev_x: " + previous_x);
+		System.out.println("shift: " + shift);
+		
 		int upperOffset = distanceToLastUpperLine - separationBetweenLastAndNextUpperLine;
 		int lowerOffset = distanceToLastLowerLine - separationBetweenLastAndNextLowerLine;
 		
@@ -66,11 +74,13 @@ public class Ground extends Entity {
 			separationBetweenLastAndNextLowerLine = random.between(1, 70);
 			distanceToLastLowerLine = 0;
 		}
-		distanceToLastUpperLine += velocity;
-		distanceToLastLowerLine += velocity;
+		distanceToLastUpperLine += shift;
+		distanceToLastLowerLine += shift;
 		
-		shiftBufferLeft(upperLines);
-		shiftBufferLeft(lowerLines);
+		if(shift > 0) {
+			shiftBufferLeft(upperLines, shift);
+			shiftBufferLeft(lowerLines, shift);
+		}
 		
 		for(int i = 0; i < Game.GAME_WIDTH; ++i)
 			destinationBuffer[surface_y + i] = color;
@@ -82,18 +92,21 @@ public class Ground extends Entity {
 		for(int i = 0; i < lowerLines.length; ++i)
 			if(lowerLines[i] != 0)
 				destinationBuffer[lower_y + i] = lowerLines[i];
+		
+		previous_x = x;
 	}
 	
-	private void shiftBufferLeft(int buff[]) {
-		for (int i = 0; i < buff.length - velocity; i++)
-			buff[i] = buff[i + (int)velocity];
-		for(int i = buff.length - 1; i > buff.length - 1 - velocity; --i)
+	private void shiftBufferLeft(int buff[], int shift) {
+		for (int i = 0; i < buff.length - shift; i++)
+			buff[i] = buff[i + shift];
+		for(int i = buff.length - 1; i > buff.length - 1 - shift; --i)
 			buff[i] = 0;
 	}
 	
 	@Override
 	public void update() {
-		x -= velocity;
+		virtual_x -= velocity;
+		x = (int)virtual_x;
 	}
 	
 }

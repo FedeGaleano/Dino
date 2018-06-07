@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
  * - In game::update, update hitboxes state instead of updating it's reference, it's too expensive
  * - Load dino raster from SpriteLoader
  * - Use sprite sheets
+ * - Refactor: Fully implement floats for (x, y) coordinates in Entity, conversions mess up the code (and slows it down)
  * 
  *   GAMEPLAY
  *   --------
@@ -21,7 +22,6 @@ import javax.swing.SwingUtilities;
  * 
  *   BUGS
  *   ----
- * - Ground and cactuses start offsetting velocities when accelerating level (I strongly think it has to do with the floating point values rounding)
  * 
  * */
 public class Engine {

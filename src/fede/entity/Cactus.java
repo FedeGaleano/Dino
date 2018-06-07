@@ -18,6 +18,7 @@ public class Cactus extends Entity {
 	private List<HitBox> hitBoxes;
 	
 	private static final int y0 = Ground.Y + 10, x0 = 650;
+	private float virtual_x;
 	
 	Bitmap cactuses[] = {SpriteLoader.cactus1, SpriteLoader.cactus2, SpriteLoader.cactus3, SpriteLoader.cactus4, SpriteLoader.cactus5, SpriteLoader.cactus6};
 	
@@ -35,11 +36,13 @@ public class Cactus extends Entity {
 
 		x = x0;
 		y = y0;
+		virtual_x = x;
 	}
 	
 	@Override
 	public void update() {
-		x -= velocity;
+		virtual_x -= velocity;
+		x = (int) virtual_x;
 	}
 	
 	@Override
