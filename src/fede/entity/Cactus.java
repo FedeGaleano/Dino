@@ -14,6 +14,7 @@ public class Cactus extends Entity {
 	private int selectedCactus;
 	private int width;
 	private int height;
+	private static final int color = Game.foregroundColor.getRGB();
 	
 	private List<HitBox> hitBoxes;
 	
@@ -55,7 +56,7 @@ public class Cactus extends Entity {
 			int delta_y = i / width;
 			int pointInBuffer = initialPoint + delta_y * Game.GAME_WIDTH + delta_x;
 			if(x + delta_x >= 0 && x + delta_x < Game.GAME_WIDTH && pointInBuffer < destinationBuffer.length && pixels[i] != 0)
-				destinationBuffer[pointInBuffer] = pixels[i];
+				destinationBuffer[pointInBuffer] = color;
 		}
 		
 	//	this.renderHitBoxes();

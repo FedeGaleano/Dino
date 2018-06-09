@@ -79,7 +79,6 @@ public class Ground extends Entity {
 	public void update() {
 		virtual_x -= velocity;
 		x = (int)virtual_x;
-		
 
 		int shift = - x + previous_x;
 		

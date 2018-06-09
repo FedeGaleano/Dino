@@ -20,6 +20,7 @@ import fede.entity.Ground;
 import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
 import fede.utils.Random;
+import fede.utils.Score;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas {
@@ -31,7 +32,8 @@ public class Game extends Canvas {
 	public static final Color backgroundColor = Color.decode("#F7F7F7");
 	public static final Color canvas_Color = Color.DARK_GRAY;
 	
-	public static final float initialVelocity = 3.5f;//original: 5 
+	public static final float initialVelocity = 4.5f;//original: 5
+	public static float distance = 0;
 
 	// Graphic tools
 	private Graphics g;
@@ -82,6 +84,7 @@ public class Game extends Canvas {
 		clouds.add(new Cloud(150, 10));
 		clouds.add(new Cloud(350, 60));
 		clouds.add(new Cloud(550, 20));
+		Score.startPoint = 10 * GAME_WIDTH + 500;
 		renderer = this::renderLevel;
 		updater = this::updateLevel;
 	}
@@ -111,9 +114,10 @@ public class Game extends Canvas {
 		cactuses.forEach(c -> c.renderOn(pixels));
 		passedCactuses.forEach(c -> c.renderOn(pixels));
 		dino.renderOn(pixels);
-	//	renderScore();
+		renderScore();
 		ground.renderOn(pixels);
-		g.drawImage(image, xOffset, yOffset, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+		g.drawImage(image, xOffset, yOffset, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);	
+		
 		bufferStrategy.show();
 	}
 	
@@ -123,7 +127,7 @@ public class Game extends Canvas {
 	}
 	
 	private void renderScore() {
-		window.appendText("score: " + score);
+		Score.renderOn(pixels, (int)distance / 30);
 	}
 
 	private void clearScreen() {
@@ -191,6 +195,7 @@ public class Game extends Canvas {
 			Ground.velocity+=.5f;
 			System.out.println("\nfaster: " + Cactus.velocity + "\n");
 		}
+		distance += Ground.velocity;
 	}
 	
 	private Cactus randomCactus() {
@@ -226,6 +231,7 @@ public class Game extends Canvas {
 		Cactus.velocity = initialVelocity;
 		Engine.count = 0;
 		score = 0;
+		distance = 0;
 		distanceToLastCactus = 0;
 		updater = this::updateLevel;
 		renderer = this::renderLevel;

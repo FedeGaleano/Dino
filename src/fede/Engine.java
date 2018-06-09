@@ -1,6 +1,8 @@
 package fede;
 
 import javax.swing.SwingUtilities;
+
+import fede.utils.SpriteLoader;
 /*
  * TODO List:
  * ----------
@@ -50,6 +52,7 @@ public class Engine {
 	}
 	
 	private static void mainLoop() {
+		
 		game.prepareCanvas();
 		running = true;
 		
@@ -81,7 +84,7 @@ public class Engine {
 				millis -= 1000;
 				frames = 0;
 			}
-			sleep(2);
+			sleep(0);
 		}
 	}
 	

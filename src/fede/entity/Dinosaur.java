@@ -16,11 +16,13 @@ public class Dinosaur extends Entity {
 	private int sprite[][];
 	private int imagePointer;
 	private static final int running_state_1 = 0/*, running_state_2 = 1*/, stand_or_jump_state = 2, lost_state = 3;
+
+	private static final int color = Game.foregroundColor.getRGB();
 	
 	// Character
 	private static final int y0 = Ground.Y + 10, x0 = 100;
 	private static final int v0 = 10;//original: 10
-	private static final double grav = .5;//original: 6
+	private static final double grav = .6;//original: .6
 	private int t;
 	private Behaviour behaviour;
 	private List<HitBox> hitBoxes;
@@ -59,7 +61,7 @@ public class Dinosaur extends Entity {
 			int yy = i / width;
 			int xx = i % width;
 			if(this.pixels[i] != 0)
-				destinationBuffer[initialPoint + (yy * Game.GAME_WIDTH) + xx] = this.pixels[i];
+				destinationBuffer[initialPoint + (yy * Game.GAME_WIDTH) + xx] = color;
 		}
 	//	this.renderHitBoxes(destinationBuffer, Game.GAME_WIDTH);
 	}

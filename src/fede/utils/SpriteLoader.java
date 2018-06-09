@@ -16,6 +16,7 @@ public class SpriteLoader {
 	public static final Bitmap cactus6  = getBitmap("res/cactus6.png");
 	public static final Bitmap dinosaur = getBitmap("res/Dinosaur.png");
 	public static final Bitmap cloud    = getBitmap("res/cloud.png");
+	public static final Bitmap hi_score = getBitmap("res/hi-score.png");
 	
 	private static Bitmap getBitmap(String path) {
 		
