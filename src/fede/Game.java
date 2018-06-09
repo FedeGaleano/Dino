@@ -3,6 +3,7 @@ package fede;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -21,6 +22,7 @@ import fede.listener.GameOverListener;
 import fede.listener.LevelListener;
 import fede.utils.Random;
 import fede.utils.Score;
+import fede.utils.SpriteLoader;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas {
@@ -53,7 +55,12 @@ public class Game extends Canvas {
 	private List<Cloud> clouds;
 	private List<Cactus> cactuses, passedCactuses;
 	private boolean gameOver = false;
-	private BufferedImage gameOverImage;
+
+	//Game over screen
+	private int gameOverWidth = SpriteLoader.gameOver.width;
+	private int gameOverHeight = SpriteLoader.gameOver.height;
+	private int gameOverPixels[] = SpriteLoader.gameOver.pixels;
+	
 	public Window window;
 	private int score;
 	private float distanceToLastCactus = 0, separationBetweenLastAndNextCactus = 200;
@@ -67,13 +74,6 @@ public class Game extends Canvas {
 		this.setForeground(foregroundColor);
 		this.setFocusable(true);
 		this.requestFocus();
-		
-		try {
-			gameOverImage = ImageIO.read(new File("res/game-over.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		score = 0;
 		dino = new Dinosaur();
@@ -101,6 +101,9 @@ public class Game extends Canvas {
 
 	public void render() {
 		renderer.behave();
+		
+		g.drawImage(image, xOffset, yOffset, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+		bufferStrategy.show();
 	}
 
 	public void update() {
@@ -116,14 +119,17 @@ public class Game extends Canvas {
 		dino.renderOn(pixels);
 		renderScore();
 		ground.renderOn(pixels);
-		g.drawImage(image, xOffset, yOffset, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);	
-		
-		bufferStrategy.show();
 	}
 	
 	private void renderGameOverScreen() {
-		g.drawImage(gameOverImage, 200, 80, null);
-		bufferStrategy.show();
+		Point p0 = new Point(200, 80);
+		
+		for(int i = 0; i < gameOverPixels.length; i++) {
+			int x = i % gameOverWidth;
+			int y = i / gameOverWidth;
+			if(gameOverPixels[i] != 0)
+				pixels[p0.y * GAME_WIDTH + p0.x + y * GAME_WIDTH + x] = foregroundColor.getRGB();
+		}
 	}
 	
 	private void renderScore() {
