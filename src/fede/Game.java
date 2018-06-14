@@ -3,16 +3,11 @@ package fede;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import fede.entity.Cactus;
 import fede.entity.Cloud;
@@ -30,9 +25,9 @@ public class Game extends Canvas {
 	public static final int GAME_HEIGHT = 200;
 	public static final int GAME_WIDTH = 600;
 	// Colors
-	public static final Color foregroundColor = Color.decode("#535353");
-	public static final Color backgroundColor = Color.decode("#F7F7F7");
-	public static final Color canvas_Color = Color.DARK_GRAY;
+	public static final int foregroundColor = 0x535353;
+	public static final int backgroundColor = 0xF7F7F7;
+	public static final int canvas_Color = Color.DARK_GRAY.getRGB();
 	
 	public static final float initialVelocity = 4.5f;//original: 5
 	public static float distance = 0;
@@ -70,8 +65,8 @@ public class Game extends Canvas {
 		super();
 		this.setIgnoreRepaint(true);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
-		this.setBackground(canvas_Color);
-		this.setForeground(foregroundColor);
+		this.setBackground(new Color(canvas_Color));
+		this.setForeground(new Color(foregroundColor));
 		this.setFocusable(true);
 		this.requestFocus();
 		
@@ -114,21 +109,22 @@ public class Game extends Canvas {
 	private void renderLevel() {
 		this.clearScreen();
 		clouds.forEach(c -> c.renderOn(pixels));
+		ground.renderOn(pixels);
 		cactuses.forEach(c -> c.renderOn(pixels));
 		passedCactuses.forEach(c -> c.renderOn(pixels));
 		dino.renderOn(pixels);
 		renderScore();
-		ground.renderOn(pixels);
 	}
 	
 	private void renderGameOverScreen() {
-		Point p0 = new Point(200, 80);
+		int x0 = (GAME_WIDTH - gameOverWidth) / 2;
+		int y0 = (int)((GAME_HEIGHT - gameOverHeight) * 0.6);
 		
 		for(int i = 0; i < gameOverPixels.length; i++) {
 			int x = i % gameOverWidth;
 			int y = i / gameOverWidth;
 			if(gameOverPixels[i] != 0)
-				pixels[p0.y * GAME_WIDTH + p0.x + y * GAME_WIDTH + x] = foregroundColor.getRGB();
+				pixels[y0 * GAME_WIDTH + x0 + y * GAME_WIDTH + x] = foregroundColor;
 		}
 	}
 	
@@ -138,7 +134,7 @@ public class Game extends Canvas {
 
 	private void clearScreen() {
 		for (int i = 0; i < pixels.length; i++)
-			pixels[i] = backgroundColor.getRGB();
+			pixels[i] = backgroundColor;
 	}
 	
 	//Updaters

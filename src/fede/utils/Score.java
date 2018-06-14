@@ -1,12 +1,10 @@
 package fede.utils;
 
-import java.awt.Color;
-
 import fede.Game;
 
 public class Score {
 	
-	private static final int color = Game.foregroundColor.getRGB();
+	private static final int color = Game.foregroundColor;
 	private static int numbers[][] = getNumbers();
 	public static int startPoint = 0;
 	

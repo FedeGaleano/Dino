@@ -17,7 +17,7 @@ public class Dinosaur extends Entity {
 	private int imagePointer;
 	private static final int running_state_1 = 0/*, running_state_2 = 1*/, stand_or_jump_state = 2, lost_state = 3;
 
-	private static final int color = Game.foregroundColor.getRGB();
+	private static int color = Game.foregroundColor;
 	
 	// Character
 	private static final int y0 = Ground.Y + 10, x0 = 100;
@@ -55,7 +55,6 @@ public class Dinosaur extends Entity {
 
 	@Override
 	public void renderOn(int[] destinationBuffer) {
-		
 		int initialPoint = (y - height) * Game.GAME_WIDTH + x;
 		for (int i = 0; i < this.pixels.length; i++) {
 			int yy = i / width;

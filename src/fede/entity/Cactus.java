@@ -14,7 +14,7 @@ public class Cactus extends Entity {
 	private int selectedCactus;
 	private int width;
 	private int height;
-	private static final int color = Game.foregroundColor.getRGB();
+	private static final int color = Game.foregroundColor;
 	
 	private List<HitBox> hitBoxes;
 	
@@ -24,7 +24,6 @@ public class Cactus extends Entity {
 	Bitmap cactuses[] = {SpriteLoader.cactus1, SpriteLoader.cactus2, SpriteLoader.cactus3, SpriteLoader.cactus4, SpriteLoader.cactus5, SpriteLoader.cactus6};
 	
 	public Cactus(int selectedCactus) {
-		
 		this.selectedCactus = selectedCactus;
 		
 		Bitmap cactus = cactuses[selectedCactus - 1];

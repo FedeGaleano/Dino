@@ -9,7 +9,7 @@ public class Ground extends Entity {
 	private Random random = new Random();
 	private int upperLines[] = new int[Game.GAME_WIDTH], lowerLines[] = new int[Game.GAME_WIDTH];
 	private final static int longerLineLength = 6;
-	private int color = Game.foregroundColor.getRGB();
+	private int color = Game.foregroundColor;
 	public static float velocity = Game.initialVelocity;
 	private int previous_x;
 	private float virtual_x;
@@ -59,11 +59,11 @@ public class Ground extends Entity {
 		
 		for(int i = 0; i < upperLines.length; ++i)
 			if(upperLines[i] != 0)
-				destinationBuffer[upper_y + i] = upperLines[i];
+				destinationBuffer[upper_y + i] = color;
 
 		for(int i = 0; i < lowerLines.length; ++i)
 			if(lowerLines[i] != 0)
-				destinationBuffer[lower_y + i] = lowerLines[i];
+				destinationBuffer[lower_y + i] = color;
 		
 		previous_x = x;
 	}

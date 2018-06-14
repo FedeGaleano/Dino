@@ -2,7 +2,6 @@ package fede;
 
 import javax.swing.SwingUtilities;
 
-import fede.utils.SpriteLoader;
 /*
  * TODO List:
  * ----------
@@ -22,6 +21,7 @@ import fede.utils.SpriteLoader;
  * - Make dino be able to fire
  * - Let clouds and cactuses be able to spawn at any position
  * - Render score and highscore
+ * - Let the Game Over Screen stay for a few moments before the user can restart with key press
  * 
  *   BUGS
  *   ----
